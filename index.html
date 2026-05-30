@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista Marvel — Ordem Cronológica</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+
+  :root {
+    --red: #E31C23;
+    --red-dark: #9B0D12;
+    --gold: #C9960C;
+    --gold-light: #F5C842;
+    --bg: #0A0A0E;
+    --surface: #111118;
+    --text: #E8E8F0;
+    --text-muted: #6060A0;
+    --watched-bg: #0f2a0f;
+    --watched-border: #2d7a2d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 56px 20px 36px;
+    background: linear-gradient(180deg, #1a0204 0%, transparent 100%);
+    border-bottom: 1px solid #2a0608;
+  }
+
+  .shield { font-size: 2.8rem; display: block; margin-bottom: 10px; filter: drop-shadow(0 0 18px rgba(227,28,35,0.5)); }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 7vw, 4.5rem);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(227,28,35,0.25);
+  }
+  h1 span { color: var(--red); }
+  .subtitle { font-size: 0.8rem; letter-spacing: 0.3em; color: var(--text-muted); margin-top: 8px; text-transform: uppercase; }
+
+  .stats-bar {
+    display: flex; justify-content: center; gap: 36px;
+    padding: 18px 20px; background: var(--surface);
+    border-bottom: 1px solid #1e1e2e; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; color: var(--gold-light); line-height: 1; }
+  .stat-lbl { font-size: 0.66rem; letter-spacing: 0.18em; color: var(--text-muted); text-transform: uppercase; }
+
+  .progress-wrap { background: var(--surface); padding: 0 20px 16px; border-bottom: 1px solid #1e1e2e; }
+  .bar-bg { background: #1c1c2e; border-radius: 99px; height: 5px; max-width: 760px; margin: 0 auto; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--red-dark), var(--red), var(--gold)); border-radius: 99px; transition: width .5s ease; }
+
+  .controls {
+    display: flex; gap: 8px; padding: 14px 16px;
+    justify-content: center; flex-wrap: wrap;
+    background: var(--surface); border-bottom: 1px solid #1e1e2e;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .fbtn {
+    background: transparent; border: 1px solid #2e2e48;
+    color: var(--text-muted); padding: 6px 14px; border-radius: 3px;
+    cursor: pointer; font-family: 'Barlow', sans-serif;
+    font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; transition: all .18s;
+  }
+  .fbtn:hover, .fbtn.on { border-color: var(--red); color: var(--text); background: rgba(227,28,35,.1); }
+  .abtn {
+    padding: 6px 14px; border-radius: 3px; cursor: pointer;
+    font-family: 'Barlow', sans-serif; font-size: 0.74rem;
+    letter-spacing: 0.08em; text-transform: uppercase; transition: all .18s;
+    border: 1px solid; 
+  }
+  .abtn.green { background: rgba(45,122,45,.12); border-color: #2d7a2d; color: #6ec46e; }
+  .abtn.green:hover { background: rgba(45,122,45,.28); }
+  .abtn.crimson { background: rgba(227,28,35,.08); border-color: var(--red-dark); color: #d06060; }
+  .abtn.crimson:hover { background: rgba(227,28,35,.18); }
+
+  /* ERA divider */
+  .era-block { max-width: 880px; margin: 0 auto; }
+
+  .era-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 28px 16px 10px;
+  }
+  .era-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem;
+    letter-spacing: 0.2em; color: var(--red); white-space: nowrap;
+  }
+  .era-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--red-dark), transparent); }
+  .era-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+    letter-spacing: 0.1em; white-space: nowrap;
+  }
+
+  .era-desc {
+    font-size: 0.72rem; color: var(--text-muted); font-style: italic;
+    padding: 0 16px 8px; border-left: 2px solid #2a2a40; margin: 0 16px 4px;
+  }
+
+  /* Items */
+  .items { display: flex; flex-direction: column; gap: 3px; padding: 0 14px 20px; }
+
+  .row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; background: var(--surface);
+    border: 1px solid #1c1c2c; border-left: 3px solid transparent;
+    border-radius: 3px; cursor: pointer; transition: all .18s; position: relative;
+  }
+  .row:hover { border-color: #28283c; border-left-color: var(--red); background: #13131c; }
+  .row.done { background: var(--watched-bg); border-color: #1e451e; border-left-color: #3daa3d; }
+  .row.done .rtitle { color: #8ccc8c; }
+  .row.done .rnum { color: #3daa3d; }
+  .row.hidden { display: none; }
+
+  .rnum { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--text-muted); min-width: 26px; text-align: right; flex-shrink: 0; }
+  .rico { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+  .rinfo { flex: 1; min-width: 0; }
+  .rtitle { font-size: 0.9rem; font-weight: 600; line-height: 1.2; }
+  .rmeta { display: flex; align-items: center; gap: 7px; margin-top: 3px; flex-wrap: wrap; }
+
+  .badge {
+    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 1px 6px; border-radius: 2px; font-weight: 700;
+  }
+  .b-film { background: rgba(227,28,35,.18); color: #ff7070; }
+  .b-serie { background: rgba(110,80,220,.2); color: #b0a0ff; }
+  .b-especial { background: rgba(201,150,12,.18); color: var(--gold-light); }
+  .b-animacao { background: rgba(0,160,210,.18); color: #70d8ff; }
+  .b-extras { background: rgba(80,80,80,.25); color: #aaaacc; }
+
+  .ryear { font-size: 0.7rem; color: var(--text-muted); }
+  .rstream { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
+  .rnote { font-size: 0.62rem; color: var(--gold); background: rgba(201,150,12,.1); border: 1px solid rgba(201,150,12,.2); border-radius: 2px; padding: 1px 5px; }
+  .rnoncanon { font-size: 0.62rem; color: #888; background: rgba(80,80,80,.15); border: 1px solid #333; border-radius: 2px; padding: 1px 5px; }
+
+  .rcheck {
+    width: 20px; height: 20px; border: 2px solid #2e2e48;
+    border-radius: 50%; flex-shrink: 0; display: flex;
+    align-items: center; justify-content: center;
+    transition: all .18s; font-size: 0.65rem;
+  }
+  .row:hover .rcheck { border-color: var(--red); }
+  .row.done .rcheck { background: #3daa3d; border-color: #3daa3d; color: #fff; }
+
+  footer { text-align: center; padding: 28px; font-size: 0.72rem; color: var(--text-muted); border-top: 1px solid #1a1a28; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="shield">🛡️</span>
+  <h1>UNIVERSO <span>MARVEL</span></h1>
+  <p class="subtitle">Ordem Cronológica dos Acontecimentos · Completa · 2026</p>
+</header>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num" id="sc-total">0</div><div class="stat-lbl">Total</div></div>
+  <div class="stat"><div class="stat-num" id="sc-done">0</div><div class="stat-lbl">Assistidos</div></div>
+  <div class="stat"><div class="stat-num" id="sc-left">0</div><div class="stat-lbl">Restantes</div></div>
+  <div class="stat"><div class="stat-num" id="sc-pct">0%</div><div class="stat-lbl">Progresso</div></div>
+</div>
+
+<div class="progress-wrap">
+  <div class="bar-bg"><div class="bar-fill" id="bar" style="width:0%"></div></div>
+</div>
+
+<div class="controls">
+  <button class="fbtn on" onclick="setFilter('all',this)">Todos</button>
+  <button class="fbtn" onclick="setFilter('filme',this)">🎬 Filmes</button>
+  <button class="fbtn" onclick="setFilter('serie',this)">📺 Séries</button>
+  <button class="fbtn" onclick="setFilter('especial',this)">⭐ Especiais</button>
+  <button class="fbtn" onclick="setFilter('animacao',this)">🎨 Animação</button>
+  <button class="fbtn" onclick="setFilter('unwatched',this)">❌ Não assistidos</button>
+  <button class="fbtn" onclick="setFilter('watched',this)">✅ Assistidos</button>
+  <button class="abtn green" onclick="markAll()">✅ Marcar todos</button>
+  <button class="abtn crimson" onclick="resetAll()">↺ Reiniciar</button>
+</div>
+
+<div id="root"></div>
+
+<footer>Clique para marcar como assistido · Ordem pelos eventos na ficção, não pela data de lançamento · Atualizado maio 2026</footer>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+// type: filme | serie | especial | animacao
+// canon: true = MCU Sagrada | false = universo paralelo/não-canônico
+
+const eras = [
+  {
+    id:"pre", label:"PRÉ-ERA MODERNA", title:"Antiguidade & Passado Distante",
+    desc:"Eventos que precedem a Segunda Guerra Mundial na linha do tempo ficcional.",
+    items:[
+      {id:1, title:"Olhos de Wakanda", type:"animacao", year:"1260 a.C.–1896 d.C.", icon:"🐾", stream:"Disney+", canon:true, note:"1º cronologicamente — 4 episódios em épocas distintas"},
+      {id:2, title:"Eternos (flashbacks)", type:"filme", year:"Milhares de anos atrás", icon:"✨", stream:"Disney+", canon:true, note:"Inclui cenas ambientadas em diversas épocas da humanidade"},
+    ]
+  },
+  {
+    id:"ww2", label:"ANOS 1930–1940", title:"A Segunda Guerra Mundial",
+    desc:"Os primeiros super-heróis surgem durante o conflito mundial.",
+    items:[
+      {id:3, title:"Spider-Noir", type:"serie", year:"1932", icon:"🕷️", stream:"Prime Video", canon:false, note:"Universo próprio — não é MCU canônico"},
+      {id:4, title:"Capitão América: O Primeiro Vingador", type:"filme", year:"1942–1945", icon:"🛡️", stream:"Disney+", canon:true},
+      {id:5, title:"Agent Carter", type:"serie", year:"1946–1947", icon:"💼", stream:"Disney+", canon:true, note:"Spin-off do Cap. América — 2 temporadas"},
+    ]
+  },
+  {
+    id:"60s", label:"ANOS 1960", title:"Era Retro-Futurista",
+    desc:"",
+    items:[
+      {id:6, title:"Quarteto Fantástico: Primeiros Passos", type:"filme", year:"~1963", icon:"🔥", stream:"Disney+", canon:true, note:"Ambientado em universo retro-futurista anos 60 (Terra-828)"},
+    ]
+  },
+  {
+    id:"90s", label:"ANOS 1990", title:"Operações Secretas",
+    desc:"",
+    items:[
+      {id:7, title:"Capitã Marvel", type:"filme", year:"1995", icon:"⭐", stream:"Disney+", canon:true},
+    ]
+  },
+  {
+    id:"2000s", label:"ANOS 2000", title:"Antes dos Vingadores",
+    desc:"Heróis individuais surgem antes de qualquer equipe formal.",
+    items:[
+      {id:8, title:"Homem de Ferro", type:"filme", year:"2008", icon:"🔴", stream:"Disney+", canon:true},
+      {id:9, title:"Hulk Incrível", type:"filme", year:"2008", icon:"💚", stream:"Disney+", canon:true},
+      {id:10, title:"Homem de Ferro 2", type:"filme", year:"2010", icon:"🔴", stream:"Disney+", canon:true},
+      {id:11, title:"Thor", type:"filme", year:"2011", icon:"⚡", stream:"Disney+", canon:true},
+      {id:12, title:"Os Vingadores", type:"filme", year:"2012", icon:"🅐", stream:"Disney+", canon:true},
+      {id:13, title:"Homem de Ferro 3", type:"filme", year:"2013", icon:"🔴", stream:"Disney+", canon:true},
+      {id:14, title:"Thor: O Mundo Sombrio", type:"filme", year:"2013", icon:"⚡", stream:"Disney+", canon:true},
+      {id:15, title:"Capitão América: O Soldado Invernal", type:"filme", year:"2014", icon:"🛡️", stream:"Disney+", canon:true},
+      {id:16, title:"Guardiões da Galáxia", type:"filme", year:"2014", icon:"🚀", stream:"Disney+", canon:true},
+      {id:17, title:"Guardiões da Galáxia Vol. 2", type:"filme", year:"2014", icon:"🚀", stream:"Disney+", canon:true, note:"Poucos meses após GdG 1"},
+      {id:18, title:"Daredevil", type:"serie", year:"2015", icon:"😈", stream:"Disney+", canon:true, note:"Série Netflix — integrada ao MCU canônico"},
+      {id:19, title:"Jessica Jones", type:"serie", year:"2015", icon:"🥊", stream:"Disney+", canon:true, note:"Série Netflix"},
+      {id:20, title:"Vingadores: Era de Ultron", type:"filme", year:"2015", icon:"🅐", stream:"Disney+", canon:true},
+      {id:21, title:"Luke Cage", type:"serie", year:"2016", icon:"💪", stream:"Disney+", canon:true, note:"Série Netflix"},
+      {id:22, title:"Demolidor T2 + Justiceiro T1", type:"serie", year:"2016", icon:"😈", stream:"Disney+", canon:true, note:"Entrelaçadas cronologicamente"},
+      {id:23, title:"Iron Fist", type:"serie", year:"2016", icon:"☯️", stream:"Disney+", canon:true, note:"Série Netflix"},
+      {id:24, title:"Os Defensores", type:"serie", year:"2016", icon:"🦸", stream:"Disney+", canon:true, note:"Crossover Netflix"},
+      {id:25, title:"Homem-Formiga", type:"filme", year:"2015", icon:"🐜", stream:"Disney+", canon:true},
+    ]
+  },
+  {
+    id:"2016", label:"2016", title:"A Guerra Civil",
+    desc:"Divisão dos Vingadores e surgimento de novos heróis.",
+    items:[
+      {id:26, title:"Capitão América: Guerra Civil", type:"filme", year:"2016", icon:"🛡️", stream:"Disney+", canon:true},
+      {id:27, title:"Viúva Negra", type:"filme", year:"2016", icon:"🕷️", stream:"Disney+", canon:true, note:"Logo após Guerra Civil"},
+      {id:28, title:"O Justiceiro T2 + Jessica Jones T2", type:"serie", year:"2017", icon:"💀", stream:"Disney+", canon:true, note:"Séries Netflix pós-Defensores"},
+      {id:29, title:"Doutor Estranho", type:"filme", year:"2016", icon:"🌀", stream:"Disney+", canon:true},
+      {id:30, title:"Pantera Negra", type:"filme", year:"2016", icon:"🐾", stream:"Disney+", canon:true},
+      {id:31, title:"Homem-Aranha: De Volta ao Lar", type:"filme", year:"2016", icon:"🕷️", stream:"Disney+", canon:true},
+      {id:32, title:"Jessica Jones T3 / Demolidor T3", type:"serie", year:"2017–2018", icon:"🥊", stream:"Disney+", canon:true, note:"Séries Netflix finais"},
+      {id:33, title:"Thor: Ragnarok", type:"filme", year:"2017", icon:"⚡", stream:"Disney+", canon:true},
+      {id:34, title:"Vingadores: Guerra Infinita", type:"filme", year:"2018", icon:"🅐", stream:"Disney+", canon:true},
+      {id:35, title:"Homem-Formiga e a Vespa", type:"filme", year:"2018", icon:"🐜", stream:"Disney+", canon:true, note:"Pós-cena pós-crédito simultânea a Guerra Infinita"},
+    ]
+  },
+  {
+    id:"snap", label:"2018–2023", title:"O Blip — O Fim e o Retorno",
+    desc:"Cinco anos entre o Snap de Thanos (2018) e o retorno em Ultimato (2023).",
+    items:[
+      {id:36, title:"Vingadores: Ultimato", type:"filme", year:"2018–2023", icon:"🅐", stream:"Disney+", canon:true},
+      {id:37, title:"Eu Sou Groot", type:"especial", year:"2023", icon:"🌿", stream:"Disney+", canon:true, note:"Curtas com o Groot bebê"},
+      {id:38, title:"Homem-Aranha: Longe de Casa", type:"filme", year:"2023", icon:"🕷️", stream:"Disney+", canon:true, note:"Dias após Ultimato"},
+    ]
+  },
+  {
+    id:"multiverso", label:"2023–2024", title:"A Saga do Multiverso Começa",
+    desc:"Pós-Blip: o mundo se reorganiza e o multiverso é desencadeado.",
+    items:[
+      {id:39, title:"WandaVision", type:"serie", year:"2023", icon:"💜", stream:"Disney+", canon:true, note:"3 semanas após Ultimato"},
+      {id:40, title:"Loki", type:"serie", year:"Fora do tempo / pós-Ultimato", icon:"🐍", stream:"Disney+", canon:true, note:"2 temporadas — eventos fora da linha do tempo"},
+      {id:41, title:"Falcão e o Soldado Invernal", type:"serie", year:"2024", icon:"🦅", stream:"Disney+", canon:true, note:"6 meses após Ultimato"},
+      {id:42, title:"Shang-Chi e a Lenda dos Dez Anéis", type:"filme", year:"2024", icon:"🥊", stream:"Disney+", canon:true},
+      {id:43, title:"Eternos", type:"filme", year:"2024", icon:"✨", stream:"Disney+", canon:true},
+      {id:44, title:"Homem-Aranha: Sem Volta Para Casa", type:"filme", year:"2024", icon:"🕷️", stream:"Disney+", canon:true},
+      {id:45, title:"Gavião Arqueiro", type:"serie", year:"2024", icon:"🏹", stream:"Disney+", canon:true, note:"Natal de 2024"},
+      {id:46, title:"Cavaleiro da Lua", type:"serie", year:"2025", icon:"🌙", stream:"Disney+", canon:true},
+      {id:47, title:"Doutor Estranho no Multiverso da Loucura", type:"filme", year:"2025", icon:"🌀", stream:"Disney+", canon:true},
+      {id:48, title:"Ms. Marvel", type:"serie", year:"2025", icon:"💫", stream:"Disney+", canon:true},
+      {id:49, title:"Thor: Amor e Trovão", type:"filme", year:"2025", icon:"⚡", stream:"Disney+", canon:true},
+      {id:50, title:"Lobisomem na Noite", type:"especial", year:"2025", icon:"🐺", stream:"Disney+", canon:true},
+      {id:51, title:"Pantera Negra: Wakanda Para Sempre", type:"filme", year:"2025", icon:"🐾", stream:"Disney+", canon:true},
+      {id:52, title:"Mulher-Hulk: Defensora de Heróis", type:"serie", year:"2025", icon:"💚", stream:"Disney+", canon:true},
+      {id:53, title:"Especial de Festas dos Guardiões da Galáxia", type:"especial", year:"Dez/2025", icon:"🎄", stream:"Disney+", canon:true},
+      {id:54, title:"Echo", type:"serie", year:"2026", icon:"👂", stream:"Disney+", canon:true, note:"5 meses após Gavião Arqueiro"},
+      {id:55, title:"Homem-Formiga e a Vespa: Quantumania", type:"filme", year:"2026", icon:"🐜", stream:"Disney+", canon:true},
+      {id:56, title:"Guardiões da Galáxia Vol. 3", type:"filme", year:"2026", icon:"🚀", stream:"Disney+", canon:true},
+      {id:57, title:"Invasão Secreta", type:"serie", year:"2026", icon:"👽", stream:"Disney+", canon:true},
+      {id:58, title:"As Marvels", type:"filme", year:"2026", icon:"⭐", stream:"Disney+", canon:true},
+      {id:59, title:"Agatha All Along", type:"serie", year:"2026", icon:"🧙", stream:"Disney+", canon:true},
+      {id:60, title:"Deadpool & Wolverine", type:"filme", year:"2026", icon:"💥", stream:"Disney+", canon:true, note:"Início antes de Longe de Casa; maior parte fora do tempo"},
+    ]
+  },
+  {
+    id:"fase5b", label:"2026–2027", title:"Novo Mundo, Novos Heróis",
+    desc:"A formação da nova geração de heróis após o legado dos Vingadores originais.",
+    items:[
+      {id:61, title:"Capitão América: Admirável Mundo Novo", type:"filme", year:"2026–2027", icon:"🛡️", stream:"Disney+", canon:true},
+      {id:62, title:"Daredevil: Renascido", type:"serie", year:"2027", icon:"😈", stream:"Disney+", canon:true, note:"Reboot MCU canônico — 2 temporadas"},
+      {id:63, title:"Thunderbolts*", type:"filme", year:"2027", icon:"⚡", stream:"Disney+", canon:true},
+      {id:64, title:"Ironheart", type:"serie", year:"2027", icon:"🔴", stream:"Disney+", canon:true},
+      {id:65, title:"Wonder Man", type:"serie", year:"2027–2028", icon:"🌟", stream:"Disney+", canon:true},
+      {id:66, title:"O Justiceiro: Um Último Combate", type:"especial", year:"2027", icon:"💀", stream:"Disney+", canon:true},
+      {id:67, title:"Homem-Aranha: Brand New Day", type:"filme", year:"2027", icon:"🕷️", stream:"Cinemas", canon:true},
+      {id:68, title:"VisionQuest", type:"serie", year:"2027", icon:"🤖", stream:"Disney+", canon:true, note:"Terceiro capítulo da trilogia WandaVision"},
+      {id:69, title:"Vingadores: Dia do Juízo Final", type:"filme", year:"2027", icon:"🅐", stream:"Cinemas", canon:true},
+      {id:70, title:"Vingadores: Guerras Secretas", type:"filme", year:"2028", icon:"🅐", stream:"Em breve", canon:true},
+    ]
+  },
+  {
+    id:"what-if", label:"MULTIVERSO / ALTERNATIVOS", title:"Universos Alternativos (MCU)",
+    desc:"Séries animadas canônicas ao MCU mas ambientadas em linhas do tempo alternativas à principal.",
+    items:[
+      {id:71, title:"What If...?", type:"animacao", year:"Multilinhas", icon:"🎨", stream:"Disney+", canon:true, note:"3 temporadas — ramificações alternativas do MCU"},
+      {id:72, title:"X-Men '97", type:"animacao", year:"1997 (universo X-Men)", icon:"❌", stream:"Disney+", canon:false, note:"Continuação da série animada dos anos 90 — universo próprio"},
+      {id:73, title:"Zumbis Marvel", type:"animacao", year:"Universo alternativo", icon:"🧟", stream:"Disney+", canon:false, note:"Spin-off de What If...? — universo zumbi alternativo"},
+      {id:74, title:"Your Friendly Neighborhood Spider-Man", type:"animacao", year:"~2016 MCU alternativo", icon:"🕷️", stream:"Disney+", canon:true, note:"Origem alternativa do Homem-Aranha no MCU"},
+    ]
+  },
+  {
+    id:"sony", label:"UNIVERSO SONY / ARANHAVERSO", title:"Filmes Sony — Fora do MCU Canônico",
+    desc:"Filmes da Sony com personagens Marvel que existem em universos paralelos ao MCU. Conectam-se ao MCU via multiverso mas não fazem parte da linha do tempo sagrada.",
+    items:[
+      {id:75, title:"Spider-Man (Tobey Maguire)", type:"filme", year:"2002", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo Raimi — Terra-96283"},
+      {id:76, title:"Spider-Man 2", type:"filme", year:"2004", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo Raimi"},
+      {id:77, title:"Spider-Man 3", type:"filme", year:"2007", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo Raimi"},
+      {id:78, title:"O Espetacular Homem-Aranha (Andrew Garfield)", type:"filme", year:"2012", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo ASM — Terra-120703"},
+      {id:79, title:"O Espetacular Homem-Aranha 2", type:"filme", year:"2014", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo ASM"},
+      {id:80, title:"Homem-Aranha no Aranhaverso", type:"animacao", year:"2018", icon:"🕷️", stream:"Netflix", canon:false, note:"Universo animado Sony — Miles Morales"},
+      {id:81, title:"Venom", type:"filme", year:"2018", icon:"🖤", stream:"Disney+", canon:false, note:"SSU Sony — Terra-688"},
+      {id:82, title:"Venom: Tempo de Carnificina", type:"filme", year:"2021", icon:"🖤", stream:"Disney+", canon:false, note:"SSU Sony — pós-crédito conecta ao MCU"},
+      {id:83, title:"Morbius", type:"filme", year:"2022", icon:"🦇", stream:"Disney+", canon:false, note:"SSU Sony"},
+      {id:84, title:"Homem-Aranha: Através do Aranhaverso", type:"animacao", year:"2023", icon:"🕷️", stream:"Netflix", canon:false, note:"Referencia o MCU (Terra-199999)"},
+      {id:85, title:"Venom: A Última Rodada", type:"filme", year:"2024", icon:"🖤", stream:"Disney+", canon:false, note:"SSU Sony"},
+      {id:86, title:"Homem-Aranha: Além do Aranhaverso", type:"animacao", year:"2027", icon:"🕷️", stream:"Cinemas", canon:false, note:"Em produção — conclusão da trilogia animada"},
+    ]
+  }
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let watched = [];
+try { watched = JSON.parse(localStorage.getItem('marvel-v3') || '[]'); } catch(e){}
+let filt = 'all';
+
+const save = () => { try { localStorage.setItem('marvel-v3', JSON.stringify(watched)); } catch(e){} };
+
+const toggle = (id) => {
+  watched = watched.includes(id) ? watched.filter(x=>x!==id) : [...watched, id];
+  save(); stats();
+  const el = document.getElementById('r'+id);
+  if (!el) return;
+  el.classList.toggle('done', watched.includes(id));
+  el.querySelector('.rcheck').textContent = watched.includes(id) ? '✓' : '';
+};
+
+const markAll = () => {
+  watched = [...new Set([...watched, ...eras.flatMap(e=>e.items.map(i=>i.id))])];
+  save(); render();
+};
+const resetAll = () => { if(confirm('Reiniciar toda a lista?')){ watched=[]; save(); render(); } };
+
+const setFilter = (f, btn) => {
+  filt = f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.row').forEach(el=>{
+    const t = el.dataset.type, done = el.classList.contains('done');
+    const show = f==='all' ? true : f==='watched' ? done : f==='unwatched' ? !done : t===f;
+    el.classList.toggle('hidden', !show);
+  });
+  document.querySelectorAll('.era-block').forEach(b=>{
+    b.style.display = b.querySelectorAll('.row:not(.hidden)').length ? '' : 'none';
+  });
+};
+
+const stats = () => {
+  const total = eras.flatMap(e=>e.items).length;
+  const w = watched.length;
+  const pct = total ? Math.round(w/total*100) : 0;
+  document.getElementById('sc-total').textContent = total;
+  document.getElementById('sc-done').textContent = w;
+  document.getElementById('sc-left').textContent = total-w;
+  document.getElementById('sc-pct').textContent = pct+'%';
+  document.getElementById('bar').style.width = pct+'%';
+};
+
+const badgeClass = t => ({'filme':'b-film','serie':'b-serie','especial':'b-especial','animacao':'b-animacao'}[t]||'b-extras');
+const badgeLabel = t => ({'filme':'🎬 Filme','serie':'📺 Série','especial':'⭐ Especial','animacao':'🎨 Animação'}[t]||t);
+
+const render = () => {
+  let num = 0;
+  const root = document.getElementById('root');
+  root.innerHTML = eras.map(era=>{
+    const rows = era.items.map(item=>{
+      num++;
+      const done = watched.includes(item.id);
+      const note = item.note ? `<span class="rnote">${item.note}</span>` : '';
+      const nc = !item.canon ? `<span class="rnoncanon">Universo paralelo</span>` : '';
+      return `<div class="row${done?' done':''}" id="r${item.id}" data-type="${item.type}" onclick="toggle(${item.id})">
+        <span class="rnum">${num}</span>
+        <span class="rico">${item.icon}</span>
+        <div class="rinfo">
+          <div class="rtitle">${item.title}</div>
+          <div class="rmeta">
+            <span class="badge ${badgeClass(item.type)}">${badgeLabel(item.type)}</span>
+            <span class="ryear">${item.year}</span>
+            <span class="rstream">${item.stream}</span>
+            ${note}${nc}
+          </div>
+        </div>
+        <div class="rcheck">${done?'✓':''}</div>
+      </div>`;
+    }).join('');
+
+    const desc = era.desc ? `<div class="era-desc">${era.desc}</div>` : '';
+
+    return `<div class="era-block">
+      <div class="era-header">
+        <span class="era-label">${era.label}</span>
+        <div class="era-line"></div>
+        <span class="era-title">${era.title}</span>
+      </div>
+      ${desc}
+      <div class="items">${rows}</div>
+    </div>`;
+  }).join('');
+  stats();
+};
+
+render();
+</script>
+</body>
+</html>
