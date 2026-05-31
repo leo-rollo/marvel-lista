@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lista Marvel — Ordem Cronológica</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#E31C23">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Marvel Lista">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Lista Marvel — Ordem Cronológica</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@900&display=swap');
 
@@ -390,10 +396,46 @@ const eras = [
 
 
 let watched=[];
-try{watched=JSON.parse(localStorage.getItem('marvel-v4')||'[]');}catch(e){}
 let filt='all',searchQ='',expanded=new Set();
 
-const save=()=>{try{localStorage.setItem('marvel-v4',JSON.stringify(watched));}catch(e){}};
+// ── IndexedDB (persiste mesmo com app em background no mobile) ──
+const DB_NAME='marvel',DB_VER=1,STORE='progress';
+let db=null;
+
+function openDB(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open(DB_NAME,DB_VER);
+    req.onupgradeneeded=e=>{
+      e.target.result.createObjectStore(STORE);
+    };
+    req.onsuccess=e=>{db=e.target.result;res(db);};
+    req.onerror=e=>rej(e);
+  });
+}
+
+function dbGet(key){
+  return new Promise((res,rej)=>{
+    if(!db){res(null);return;}
+    const tx=db.transaction(STORE,'readonly');
+    const req=tx.objectStore(STORE).get(key);
+    req.onsuccess=e=>res(e.target.result??null);
+    req.onerror=e=>rej(e);
+  });
+}
+
+function dbSet(key,val){
+  return new Promise((res,rej)=>{
+    if(!db){res();return;}
+    const tx=db.transaction(STORE,'readwrite');
+    tx.objectStore(STORE).put(val,key);
+    tx.oncomplete=()=>res();
+    tx.onerror=e=>rej(e);
+  });
+}
+
+const save=()=>dbSet('watched',watched).catch(()=>{
+  try{localStorage.setItem('marvel-v4',JSON.stringify(watched));}catch(e){}
+});
 
 const toggle=(e,id)=>{
   e.stopPropagation();
@@ -553,7 +595,35 @@ window.addEventListener('scroll',()=>{
   document.getElementById('scroll-top').classList.toggle('visible',window.scrollY>400);
 });
 
-render();
+// ── Init: load from IndexedDB then render ─────────────────────────────────────
+openDB()
+  .then(()=>dbGet('watched'))
+  .then(saved=>{
+    if(Array.isArray(saved))watched=saved;
+    else{
+      // fallback: try localStorage for users migrating from old version
+      try{
+        const ls=JSON.parse(localStorage.getItem('marvel-v4')||'[]');
+        if(ls.length){watched=ls;save();}  // migrate & save to IDB
+      }catch(e){}
+    }
+    render();
+  })
+  .catch(()=>{
+    // IDB failed entirely — use localStorage as fallback
+    try{watched=JSON.parse(localStorage.getItem('marvel-v4')||'[]');}catch(e){}
+    render();
+  });
+
+// ── Register Service Worker (only on real hosting, not preview/localhost) ─────
+if('serviceWorker' in navigator){
+  const hosted = location.protocol==='https:' && !location.hostname.includes('claudeusercontent');
+  if(hosted){
+    window.addEventListener('load',()=>{
+      navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    });
+  }
+}
 </script>
 </body>
 </html>
