@@ -5,429 +5,491 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lista Marvel — Ordem Cronológica</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@900&display=swap');
+  :root{--red:#E31C23;--red-dark:#9B0D12;--gold:#C9960C;--gold-light:#F5C842;--bg:#0A0A0E;--surface:#111118;--text:#E8E8F0;--text-muted:#6060A0;--watched-bg:#0f2a0f;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-weight:300;min-height:100vh;}
 
-  :root {
-    --red: #E31C23;
-    --red-dark: #9B0D12;
-    --gold: #C9960C;
-    --gold-light: #F5C842;
-    --bg: #0A0A0E;
-    --surface: #111118;
-    --text: #E8E8F0;
-    --text-muted: #6060A0;
-    --watched-bg: #0f2a0f;
-    --watched-border: #2d7a2d;
+  /* HEADER */
+  header{position:relative;text-align:center;padding:72px 20px 48px;border-bottom:1px solid #2a0608;overflow:hidden;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .header-bg{position:absolute;inset:0;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACIAXMDASIAAhEBAxEB/8QAHQAAAQUBAQEBAAAAAAAAAAAABgAEBQcIAwIBCf/EAFAQAAECAwQFCAUHCQcEAgMBAAMCBAABBQYREhMHFCEiMSMyM0FCUVJhFUNicYEkNFNygpGhCBYlY5KisbLwRFRzwcLR4SY1g5PD8WRl0vL/xAAbAQADAQEBAQEAAAAAAAAAAAADBAUCAAYBB//EADERAAIBAwMDAgUCBgMAAAAAAAACAwEEEhETIgUhMjFSFCNBQlEVcTNhYqGx8IHB8f/aAAwDAQACEQMRAD8A066a5vRQyyiiiSUmGloKqKj00j501cuRj6RAEY1IR4roTkxYcVmPmZyMUnpJqfofSaSu6s4LUaNqdTAD+9UzAYLoQ5dpY81ZZy90XRTX1HrtNHU6O+GRuTto/lnLimcD2kCw9MtfRxtanmDIBeNi+arwHaF8Y19n3cFRzScTSryJqi1OmWho7ep0x0N6zOjGA6N9K/67oeZWVGS7WaMLQ2GMT0Pa9zya87cWVpjX9JuL3bkTlfPb14e6V66BbYurV2DblfOtZqLRamrtfjw81XxlCSzrkMNC2Iep4Q/CTN6WGmsi/VjzOx/tHoYv1vJwyrK3iB5L5AhbSkV3XBvrMibFGPDngW6wd/UqU5XcNsppn74EqxahzR2bj07ZmpU0nMGtGEoFr7PKbJRaNJq7F88I2EXxIx9lcNrREplMprhzXXTZtTuYRbpaUC3tmHe74ysuS5ZGtvliylIfn0L0O31nWXL0B05mBGBJUYr9vDDds/Zl3wS1S1gqO8cCrtHq1OZDWrLqORmtlo44lLFfg+3KURDyzPoJ42tXZQo61Qt7cRyqUI2yWmfiRxl7N29FjWLtLQ7QsxtRCGycDRg1VeHmYex4pRmC8xbFg0tvx1UhLL2jodoQkLQqmN7l4czBiQpGLm3yVKU03wRDirNCdiaYJ5bamMXzlt6Jr6kNFgXvCRtklKvGi5Mti8XDxRcdMalEzJ6Sci5NHPQjne9HVDTXS45MBaLFsRqQBcmGDwcToSiL9GUfj7K4j3zMvqujhePFmyU02XiQCkwsMTLWmZvKl6OHrqlCdB+SiyyD/f8AfD3xC5AdsF0x2CqO9Sp5WJuV9Z0a/HHIaYzIxyjwK4cj6GB+1gKv6BIWzxSCqDfCtCEc4uHnIl5z/wAo9HtFSGJwSf1dk2eHClZwk7KuHHs8J/8AEeR6jdNHNt48Stb27SJqoQKTHoaojQ16jlyxCfNiEJ0aEHQvH8L74fDKIvRR1uzN4nSJj5D8JOjj28FrLP8AWDhsNUP25YpLdNGwm0eQMvmJYYDZlLBqRsLOzYjXyMrohRW/UlxF1h5EIqmF6IRRkhhlFifSrK5WHbhmJ9mF9Zg/0xqG8y4sdJDiCakx5VE0ahuvVZcMHTN016UUNb3tA7fuGKkxH2ufNrM2V/OGp/NyLSgCEYc0vukrqlDQ1r7PNbVN7POX3yg6Me4jHg69vndfP4QIaXLRi9DuKY2KSo07HjGs6MG+lO6hffglfd/CV+KA3PUVhxVe4xDYNI3Icj0pWU1Mbp1rIyE6RGBK1C+tt/hHjSxXmLax7diVyyIR+6UbcwlVlI2J+rO++V3vign1RK+CNt8mbZeJGNCE4l705760yvV5eGPT4jl9Xm2rckQi0rxo9av3dqA1umZtBp7ONYzTuj+nia2VZas2cthnxHwH5yMar8M9kuGyXCCDKgQ0P2x/OamkY1Mo/TLRHL9jNRiuSu77pT/5g8y4tRTZcSHJDiMsqPWVD1IoSkQxuA8SOUOPSUQ9UKPOVGsjsThhj2lMdMuOiURzH0Q49x5j1A2Pp6hQoUDCZFmqyvVQ2qlPY1NmRq+ajct/AuALQ3pNplvmbhjlDptVGtXyE68at27fRPtS23ezOLIEEkw8oMjcnby0eHziPJCajuDP9vrJ25sXbb85tHDbXaEdHL0oHNEvDcpMhdpE7pLTdfhnfwldAla7SzpWySarQ3NFGBHLrRTi7nWpU1rlOSZfdGgraWo/Nmm685YvaluKXgQtO4hPOV3XbZffwgCZ/lFWBKYlMrjZ7RSdBy6ElTvfUnPZ53dcJtDy4jWTsuRniqW0tDWOVfVh69INGDl1pXH2zNqqvZnL9B1NzTuUxrQhe6X2Vy4Kl7++cRDqmsfzqJQ2JcxwToAAApalo4p2dnZt+MO00Gp65q2VmEH6hHS/+tVy7vO6FWjxYNDuNHkXHZnSsKsVJkWulGNwNCkYxgVh657Ubfvl3RaNPt5TH2sfLmxB72Xkb8ZLdU11TDZRREbOOeNG6vH7Up/CcGLVVYpjMb4ohtiVICkDXg5i8O6rd+GzjL7oXk4+LBlky8lJ22Wlp9R3RLNWQYuKlaEn9qGjNS0RO/EqSNuMkpS65XSvlfi4RK6aH1ctDoZoVTqfJ1WkukuqqBCE4d5Kx4rkznK/fROd26m+fZim6bYy2ggkLRxtnOYvAQ7Wo4FbvOTPFgnL/eBKu0q01nnZG1cbPWQ3+/vnxpcYfNM5yVOV/wCMNxY44KHl/iLKpfOjW34qZoyqNIqZSauOqBX41auUmYdKUcZ7ELlL63vjtbHTPZSsM/kNh3o6iTfz1nCLK8KpzFNc57Oq6KVs2MWdmui5hMHJo7X3Xxb+gSiWerrtzV7Q0gZCsTjQdC71pKJaVzRjRwVO9E75+6MsqtxZQ0kOPzfyFP5KBqm2NaF1U2JNTqx0uhkX4sRN6/tcZSv8p90X3lC9VAdZVJS1561zfk48xGDs4Oym74wE/lA1y1NGeUakUO0hKFTyZi6i9CiSzIw4cApTnfxlMk+F+7L3T1G+S9xSZGaTiElYtjZBibXqPWO2rPQ1ApwJeFW/eNPNXt58rt67FfzYG7SW4rtTtI39BF1KjDRy+esSFLWpXWhW+mUpXbNnXFOpTaqjs6i2JXG72jVJaV5+q8qvfWRJFruzOrbKfXgnshhT10woflPy0g/p/Z/FP3x6HpHT4LjnkQ+o3k9v2ZTUlHtVRyhyivh+DwQQUd41Ll5RRk+oRK/5Yy7SS0cXqqS2y9/oErL+9KCGj6QWtMqWq5tN1fB2FoxL3vZ/hFCbokfkrCsPV5PFlNIvGYnQcoosyBhNPKI3ynk4hbP6RKYUI/0wPLPuDx9F9W/sz8pwcN31MfZYnRRjITo99O/7oj3FnNGvEoR3SyEE6K2YhI5clINuMBOX+i3Zzxz90pTjP9pkSZWv/STYhcwiXKEGR84TPbLF1LRNX4d0aZrdmBlK3clzSDAvHg7K/ro64BdI9MCSzhRuWvpErFCjBx4l4fElW3elKW26/qjw15VoZ8pF9T1nRrxImx93Y71iz9j3LNm9plIpQ2bvD8qZBkJSN3vFKSkz84dWbo79jNwJzUyPRY06qQiN7KVfiTNd96533be6UU5YC2j9vagbmojcvAOkamZGzm9lMpJldejjKUruM++L6pRtWL6M6MfPBj7aVXzw+c5bYT3GtZVqzBL+1lt6bTV1OhE5UdmsPY8qVmw+0yzeJJVcTuqGFQFD3FlclHXLzYchbLiBbiVzQbUWetCbVaPWGzlwPEvI3kFwJVOWK5W3q/GXemCZrUGInmqlcttdIjoMac37uMVPpYLYFs8JU6O+IKstMTI4KOtLRRcS0TXjIlF+zbw85RXVNqQhMyV0RXPpFhiODPPjwFSuWG/ZvcJffFjFY1F1ZpDV4yCis9MVqHJcuzNmWpHNROtWYtHqkJvkr8dn2ZwP2V0m2mfG9DlYsnNROTADAtSFbyd3qu2TixKDZV1Z54QToo3LggE5hEc5GFMpJ+F81xlY5GyY0s0cbLVirbA6ICtax6YtDyjga8YwY+etXaXPte6GWnA4hVJvR22XlgYkWRCOwtapYf5JxaukCtFs9Ztw5F89IhSAdvfw874cYzOohS5j5yXWXByKWQ68WJfDD/XtThWaTFcStaxtJJuE1YrRVQ7Q6OKxapzaodJqLE6stB7srAlN+9Ln3zns2fsxT4TvmNSGVrmawMiVjwYsWNO3imD8YMpmQvKEGPfIhH1pS/zl+EXPZvRhR7KWVqtdrHymq6iRZPC3RhvwI8U9kpTX2uzcmGLZmk8V9Ad3RY2xZtcqlc2BpWVpUoWolITLQRbtaOxu9fxnd8Y0LlxT/wCTTURVO21qmrpr87AN0PH2EYsCkz996P2Yt61i3NM1J0x6PGpBEePrT9WeycULeZo0pI5HuI/mMqnRI484Y95osnWs3k8GPH/vHQYs3oopNKuOSiSr9pwy4WXEg3pWrcq6LykNnTUQjZov/wDeKJ36q2vJew78Gv2sNMMLDHdSY+xbpJkT8Tjhj0lMdI8xnI7E84YUeoUZCAxpg0ICtfNxU7FvW1Frs+nBzGj9Ke/DtEr2kce1LtQBaPrSaY9F53k7aMKs5p6+TGE580aLu2Mib5J43e7sxqFSfW8p/iI/1R1SrWeSKUbkZOkQtHPR5yuiXuZcTO1t/wAzNukDTVR7TWV5WmVJtVWh8YNxCwLxJuUhc9mzr6p3yjOVffSqZ3D4bEuY7JkgWvniUm7dShPXK+U+MbLt1oFspXTEfUdySikP0iAIxgX9jZhn7p3ezGa9NOge1VkA/nBTZ+mqUPcdma3oK33tmNG2d07+Mr4ysLM3INvKnj2KufSyssrUpPSIDpXn9rHz1KnPvv8A4QZUnSlUvQQ6Y9YN3NQBiWA50b3Ov3Z9mfu2T+N0A1NWIXJZWWT1m/8AuqhPhCLyuVHSQq3kahuHj8WLRp9sX1cM3als82fEXyAELzVl5017k0T2bVr74MabZ+15LH+nKxSCjZYMeBdUCJSEYufgXLZs23TunFNaO6m+FWBiEXlCIIhGNG9vInJSZTTKc71omtH2pRxt9WqpU2pJSKT0WA6h4EX4UXKnJN/Zvndfs74mS2btIq00KfxqY5YlsWJ0iWfXalc2zWtEboa4HeWQS81eJEkKluSvulj29eyDS2jOxtvbIFYTc16nOALzmp3VOzRCLh7U0S5k5bJxV1kNFlTY0ySxVyg+kHwBn1UiypUgUk3qVelE5JlK/bOd3V8ehnltLFhHUx6yOnE6B8xdY2pftond8J3ThdlSsmUX0KFpsPDhL2aoFUM+oVjKfC5RofAvB/lPuujR+iutCY1hw21UY21SapWMiO2tG1KZ/Cc4z9ba1JbQ11tV6mIZXgwJRjQjpcKr8JOqfGe3+MG9ibTtW1NGKpuhtstfJrQPHgxfH+EUYca+XYxjl8v1xNQ1olnqHypS/KMhK8B14MeLun3y7orq01So9dZkyn2Y4JvgWvpW5cNyV3K65fy398TQqzU7V2PG5pldor3IzF5FRRJRcHaundfd7tt04AkV+wQrSDplYH6GqJ+jIBea2Kvjwncvb1XXpv2X4tkau7X6UC2Hw20zy1rlrp6/76hBTbDlKzb5tYy3pGuAaEIzU73jnfLb/L5wIW20DViyDP0wxrHpIeZygEIUgqPsbcUoMKk+c0IJC0IvpZwRHIIB2F9lRMc5YJeLjPygWqWlS19MrDZjbQQyEd/MQNVhQzWjZJWMhZTXffP2OMoN0u82nxXQndQtVkbFvH9iG1xqWm6rXKYNyPeRrSAJze7FKapcfOI2zejSmWmrGVTLXjbD8DoClnR8EzliiyLRVehOgty1Oj5bcm+RaDqQreu3peGXHjL7o4m0SNamFvWLKVwlNzF8nr3Y3uqaJeUXP1KKZeWqk276RW3XcUnaH+T7Z4TMmbaurPSER6jKQJH2FSX+M4bOtD9q6EH/AKZteRy3HvgaukKFgWnmqQtM5yTP4Sg/s3ZK01Ho/K25ZPXI99HyXBzeypapzndPvwRMWNrha7TSFdNst6B0Rq7B9EVCt5N9+9K6cpyn2kzlEW4uJVb5b5GY41ZeSlf6PdL1TpjwlCtg1IN403DgwYFbvbH53bZo4KltR4Z2jUgUyuUfXqY6G5ZO0cmQC93e+r/CBHS1Yuj2hoJKmXLZVFghSxul83AnbhXPu/liqtDukFjZCpEavqmX0c7WnMBkKWnGrZjlPqifebN1FjJ2YYhWSOT5YWvdFZSV4hWtXJSqWvCsg0IUVS1pVfi3p7bpzntu2X3XR7oL2qWLtJ+a1oHMyUshFGp1UJ41+fC6c53TRPrnfFto1ZyEbliUZG598a0c1cRtWpTZ8zIxfNtZbk56CYdz2pYuuPM3ljIq5eS/73LVOqNL8ufvT/e/7ncKs2OkDzF96HlqrqRNXBuDPu83bvT28buqCLpeVFClhIugGZaqOEphJV+tjy1iGtBa2ylHzNZrDbMH6hC8alr27vv2RfijRuQjJJiZQtNT3LnSFWWNHENzl1FwsCGqN3BimtSZS8tv3Q2as3RQuBFbEzCb+54OOKeHsbb77o0Bo00etfzwJbSmVMblk4WQwEEQpBUFXfiT3Luv4y+6Be3VjrQsbSVF0xob3LdnVgywKWLAtV/FPNlf1QxJNIyhIaQnT8mygl/PxzWCFGTIANGDnqXjSueyffKUtv1pRZTW1jWp2wqtHFyZB8sP2+ElJ98tn3wK6EW3I1EuquWzg+WHGvF4ZTUq5XNu4fCcPqpZ4Vi69VbXtXWZrY8lo1wcwq8E1KnP7E9ndDW5IlovuqT441ku3b8ENpMyn1SI1L6hGAfsLVtUr+EvhFSvKYItSI2YtSZfPB4f/q+U7vdFnU1PpisE158PLBy75fsYt77+EoYYBV2vEdNW3SYUDB7CU7uz3bboktRu7MejjkaPFVBHR3ZBzau2DKmORfIhnzj7/YRzvv4RoW1jH0nQarTC8nntSI+piTOOFh6QKhB6L5QfpF/ypl5S/wB4ldIBisbH1GpteVIQeD6m7vKv8orWLbcbKykq9kaa4XEpP8lmkfp601d+jQFl9vFNa/8A44sG3Vp6O2M4oT5rUtY3VgyAK5VfHcn2p/7xIaFrK+iLH5pZZTh8dTpaMveSjYlF/nOUsf2oIq87ExZ6855PL6P+GGUOROq22LC9y25c1YoBNo3NYZko5ctsydrSg+5jUhCtiuv4/CLtotO9GU1u1ai5MA0g3/AmKSorMXpgb5yIno4b4eevwYl7t/3dUaMpoCsWfyopHLfxr5yPf4pQnBN8tlNPxGxACdet/rj/AJxH1BnAlo/tIK02k2usBTHq7QauZiRvpJgSne23yunfLxJgk0i2lplh6QN86bOHpDkSMDVrhWdwtSpS2XzlK6V+9Oc7oHbwSyVyl8aBHkonGPuNCIjnhhnZW0zG17N65a0ypU0jQ+QcD4CUKQvDfsmmc5Kld3TiSUmPVRyRsvEjyKytyOUJXGPt0fY5jSseYUKFGTRYQ1CL0v8A5IaOhC9VmD/ljoMgvWx6SMXqo8/uD2JxYuXXRZvR+3HCsFatqa9cusvViAUg6Do3e5Wy6eLv4Q/I1EXouTJHtLYpQ5RRDIODLIyi8keRnu3NlaZU5Nnzql2LtHRna9zA1TTD4PFI6cE7/irzlFN6StElDoTIlTsraEj0az/9rONCyt0Yfp0LuJdP2Jbs/Fx0vaqxLmmmI6pY2w6VumO1dE5Ldv3blSu237Ltu2IDUWpbN12sPnz1zTqa1U6OxOjNKhCEzXiCtN23ZPql7UoG1xy4+v4E1WVeOP8AyY4CV9THhHLH5M4wKQNfaR1K/C+Xxghk3nW3GWtjlDGdK3TVa1b65c6/bwlOc+HG+Otrbc2Zqeul/Nkmu4/ki8xPRfrMPX7r5e6Omh5lau1dRcsmFHJURkQpa3SEYEiuTzZk4X8JSlffGp91YmatNB61Zcu4S1A5C1jWtWK5pYGXKNceDXS45lUhc+OVOckX96Uyjrolqbi0x6raG0tTIQmelA2KCKEBCMMsKUITO6SZbJJl5RytNUanZkw2Nco71sQfR56Eox4e5d+BXwit2tZY02scmNyOnkXjOgZ+b7MtmyJ1ruMlVx/YeZolkyLM05aPC0f/AKrsyxGSyxEJMTL3yslq7K5fR37JLl7leYTYdL59Um4mtMJUstacweBWVgxX7608yWye2+UXVYO21HLTRtSiISldCfP3ElEW/EieLZPjPhzoifRlD0em9EOqnrLI51AIhGHEhClXgdEwy77h3zndsWmGImzXFhl5GjbcVtT0GzVTbPG7qz2Zl5HKU4Z80rTjNSUz9ajz47eu6+PTWyXpgw6mV0SmvQYsg4MSDiXwxSn9+yDuzdQpjV4yzRcoNaTtFoR41T3kT2YeM5XX83nQ7tUgrWsOHLYWXv4xrQjAleK6e78b4+3t7JBbYr/4EsJKTSssn1/v+4A2XtC/qdoXljbTViVOtahCpMaovAsFSRhnhUrDKSccvundcrbKaokqJo3pj96R1a5w4tNUSLSjOdE3RXK5qEIVciV/VDe0zChlCN9XHQ2ThGLVXWekRUYudlr6tndEE30c0yuU0haFa/MGTcJzS/ZnNM5bds+PfCtpLbzLV3rVPzpTtU66SWFsE0dfprXuPrbOWOuVFs1Y5metWWTLUsqxY58dm7K+U4iKLaotMoL2mZT30y0xIaIAha1FxbchWHbIc5bb75YFSlOI+z53VHrzimOmw6k4YZgM9C8CcpO1SlbJ7NmyG9prQvn3yErEbLm7iN9S8V007/dw4R6S16Q7V1y4+pFuup0aPFvItTRbaiwTqsM21oqnWqJUXGJBKXWK2ZeDqxJIqdy0T7OPDPZ18Z3ozfWQoWsMWJdW/tWPHm62td3KSnfOa5z7/LwyjJVR0QuiUIlYtLUxNhgQk24NRiox3TSnHfK6e2Xihkxt42o7wbFi1cjZNNwe/jV9b43TnP60dH0+KTJom1XX+4o906sqvT6F3flWWsqbWyrNiIRB0p+RSHZ0YcW6pE0I70ynvz2eHjLrzs1qFMK8bldPhjb405iEb6u/Fxl3QSWwteK01BcfLiOctA9xeNGDflvcO7jdApR2rF0YYnIuTwK5h0YkcJJukucsUtvCUr1RMvrWkMmJWs5slNXaE7Q0MllSFbPvk5DpzN/GoS1Lnvr2967pz8osWn1Bi+6Jzmfs4ubLq79v4TjNdHrgi00dHY/N2GFGfjxpXhT1eW1d/tRJGtBmvB5TkeYQAczAv9VKalQ3aWLVgpkJ3MytLU0K+pTF8Hlf/wCPxiNpKSsQjalLmDHuDWv+WfnLZ90QOju0rUvyGpiGT6M6EJxfHDzvfODd0z/9fP8A6n/tHk+u9JaD5sHr/kct7rLixGWiZlfUF6xbOiNiHApA1o5yMSYxc+oL7OetitrR/nENY9UQtGUASMe8sy1y4bNk75Snt2xuFvLNzBesR/J2VRSH5QFg7c2rttShWe/7ctrgOc50oA3WnHPFOV+PbfKWyU/4x3S5cl7A7pSvKhaMVHeDbFrDmpZCMA8heASEJ7oeD05V3O1WmVPUhj+3+K74GDaItLQrSDpnodsTMRj1rPTqyN3tL2z8rrr9vxiJtNout9ZWjuLQ2ho4xtxr5dbV0kqhI4YloT6vz6r9uyKq29fcJ8jQtktOAnMm4rQUMTgvM15quWav2rru+LEtLRG1tLLDctakWnNkLzsx0Dsdrr98YZptoSsTDLyZB407nji6g6Y642s2RsWpuSld9GT+7okns/Gcru66cYbcTz7qailx5KHc6fYKhsyUypP6jViHPnnI15JJd2eAc54ubLuv65wTWePYIhhlpjZzTiZGDnrWlHDjJU/Lj5Rm81uHJflVTfEc5fj34lHVuKnWNHtRaiYjprI68Bzoap+UCSmZFpWtW1U7h7JI2/uwOHNpP6QjXUjfcEttNPLZs81azPKDGfp3QN1aE85MxpXJffKU75fsw7srp1fWmp/o6uWe11mR1cPImpCEF54h3q58rpT2X9UsSuMZVcEfZ3REHmLSjcQrDj7V3x6o7qclEzGLKHq/sIwb6lX4p+fDZFTb44qD3MmyP0IsRa2j2qDm0N8MhBo5RG9iRvTli3udK+U7p910+vbz0l09zWaCNg1csh8pjOQ5sG4nsykm/r/hGOtCtpa41r2UKpky3aFNRoz8GAqk4EKni4y2S2dq6XDZB6m2paObNqdTJUnH0CF8kj3+KcTLpNti30yx+KSrZehflHpVmaPY/UKm5EQZ0Kz+xm+7rulsunEJVNKlIplBILXiOW4+Q1peHEvqVgw7JzlLrjN1qrd1OsPM2plIRt9AhfP9mc4Dq1WnT43Kl/w0I5qEeGUfV3Wxx7DjWdtCrZ8gopekF9ZC0jl9R33KEPy61oTicITfhvnxlxnO+V3H4QRWj0isa7bD84HOW3GdjgIgm+lBdiVXIV3z6pRSaiZrzlYd4MoIylLmDGtK8jtL3edDz224vJiRBfrbSMqqb7slSaYxsqzLTHw6iN2hJtaQvGkuJMsN3lKV0k+6OjgUDuh221MtDZtlR/RDaivBg5OnARuiQlMsSvZljv47d6XXtgvMOHrNuPH0oJ3dGrJyIlQCw9DTfpS/sQ2cIjkkpRetg0jStxVga4kn6NbfRE/bhQy9IFhQns3fuDbkftCxQo8pbOfVQ7UCPamo8r5zykS1VvINkoxVyXS5g4dhqAul6P7Ee9RzelLmfswzNTCl9aMf24JyXxM8W8gbtwUVTNlFy8se/wBtfO799A0T+vNXuiPp9nBOg5WUMjf9evGL612CSFTun2By/wAWCJxSs02aXLIQfRr8HujgRq6+iJC+42XiE21/ICUTQHomolSJUy0KVRcrWpeQ6XMrYV6r8KBT2Xd0lYros4gqY1Zjy2zZkMfYy07iPLDKBSvJqbXMyivRtyIwbiwtxI+uQu/+x90VBpWr3oegjdFK2IQi8A8esPk+0tBCzkNU5dW5BGuJGbkZWJftJb8qW2FLa0KVi2TUb5xVgY3DpZMQGSMW6rd25l8pTTLZ4r4yK8G2GEhBOc1mg+DHl4FLxJnNPXPDLZOLaptnmNYNrTopB5HTrQdCFIxJ5u9dtnsnx65QNVq0dmbMlcNbIUNuRyDn1R6vNLj4bklSnJN1/GV3uhu1uossUTl9fwBmt28617EXZOzFctDUmxWzVtTm4MJ89fJJwYr9zFtXfdxls84OnJKkxo0i2qrtFcuX5h4GKHQlFaN9q99d1yrp4NyU53dqfVIO/N/SPbnV3xqY9I2JhWB065IeDDuqTNW1UvOV8Pnmhu0zbLKN1TXpB4dzGrs9m9UuEauLuHc0d6BLaCVV4JUKLSaRqYWgkExfay9puEwFoXu40qlhT7UogLWaW7aW0Czo+aNk3zE7iMSMa1bE4l38zbLq+6+6K7fU8rF4Rq5ERs4HyJ0L7HiiXsmgoq9TnQvnA3Q14183GlUsKfdG1VaKBlkkduRZ+lix1Ho7NuIT6pEqI2qcwi8KxY+1suvTKKusnX6nZm21OdNnOZy6UEQhHSoUq5SJy/rqgmtxaO0OuDplYFq3yVKyA3d/EnduxSvltundtiu6aB96XbcrllzErRjw7u9zp4uqOhrVl5V4hp4UXxpyL20jMcqpfnfQyicsjrwOx/RF2cetN90tnil5wEpeF9JDfF5TLWnc+qm5P3SlFz1a1FCFQfQ5bPU1sR21SghwIFhcYlTGpU5ZaJoWicpr4TlhlPenemUxavUqmMQk1WzNNqw8CTDRrxmjlaE3SVgmicxqvnfsncpXNSmcXumXuxb7cvfT0/Yk3kKzTZL2/I30gW/dV1m4s82EQYxgGgm/u4w5e/PZx3F7L8KUz3oq1vTqm+rGqsWLly4HzwIQrF8fDBJaF7ZC1TPWrDMatSayPEs9KIRThLhMucUBE7b5X7yJ8U8OG3QOi+z4qPZunay1cjcO0DM7WfpVrwSmq+flOc9nnPviV+pVs4tKr31HlsaXDZK3YzfQaM6rDzVmPSYFL39xKEdpU48KY+jDDc5Q3LflMheYXKXhVgVdt/q+Da3lKLZS2D35y2pVWQrLOhGPAhSpTWjq2ynLhs3ZxC2oqIi0f0YJ02c/KlHGsAFiShCkz6lT3fdLm4fqx6DejuI1mx1Jm20Mm2zaEdS3Iq5UiMamUgx7uRkYUCb/AAVs2w+TZC17GpE9DsXL0Y0fOmKMe5h3sSOOzbfsnLb1wKNU+qFmDy+kx/fFpaK7aCavG5RFINwP9/dvw/GUo8/H1C5iuOXda/QsyWUEkPHsw9sbbWp0wwy8nmesWvFv+/flK/3ynGktHdu21pstqTknuDk0LOkqS+LCtN33XSw+cZxtxUKY6tVVX1MqdF1ca8ZwHdIEpuvZj2LumqV+29F/GOdkbdUOj15k69OiGQZ0rJkNTL+1vIlt/wB4udQt7K8t8Wrix5yOS7hm9NVNiYcow/pP63Y8uhi/8cQFkrcUO15v0YVs5Hj5iFqQVHtTGqUpzlt4yiRTX6Zrmo8pz8GNaN3HH5utrLazf0npFrmdTC/9ccHDYWT0uZmdj60TCWwobvGwhZf10x6FG+WAZTNmlb8msL8ryuWIfDpuWNRpURY+QUW7mhXfyd93C6ctvVGem/pMXJFauRkGdQMg6FYkYbsSblec4/RV4jpBCLmc2MoflIPmL7SE41EQxkAjAdaEYMa8KJKv89kpfCNXLLt5Cari2JViaeXUyOnxf8NA+bj98TbWuFs9ZVnQ3Ih6vUlkdEXj5iFcklMkecuM7+bOcM2pBZI+SGQY1pWTGvdX7M+E7vdEfUKgJ8z1Vyx1khF8hv4MCMW79WUoRXkG8RzXqQIvRcplrx4O0jr2eXCBBVBqZcsQhE5Tp14N3nX/AGomR6yxC4/TAxOB9GA++leLm4Z8Y7Bd1jJzfRmYMmLf5+D2btkk7e/bBI2kjMh3Z2zzawNHJXS9IRjjBzkfKFquQm/tdufVzeuK5cOS+tLF56NzirjwdkLVFI2Zkp2SsYNzG4UqW9KXC5EpS+3Kcu+6r9K1ha5YGvajUxZrc+JbF16pwjxS8M+F8o03zW/YsdPnVI8VBEiyl6WGSlFLyQo7E6bK9ZHXkhBhyGH7mEb6+5bcZ5CLVui6SCTRfZUVtNJ1Gs8UnyJ2dK3fYWgSNq/q33Xd+2BhuopXg4vr8kWj69bCq10ouUaNRoHudtfa+6U/vgd5MsMeagbONpGxkJtWgu3NlNJDap2LrDIlCGfGDXnRUKboUreFOSb8V0tkp373ajQDiO/+KWGhCiziCEUeYPsdpGLygfT75Zlx00qMzQ4jRwKGZBRKkTDVSYqR+Qs3iMsiFDyFDG2D3B/rceNc/WxDmc5sc88Qo8WtGL2ITEqYihiPI+FEMqqi+ijgSqi+ijmmbI0tuTZn30UNjVMvqikiFVXmwobEr7b6L+aF5LrL7hiOzb2k0Sp+tK1zCD7a+dALpmaitXYkjXVvloF60DBzl4b8SJe+U5/auiUqlo2NMZ69UytmTLxul4Er90uKvhJUVraTTPR87VbMthufpHz5am4vsD56vfO76sEtLO7upF2jpmhhXmVPR6uV8XK1kno9HPwAStTharpYZYupEpbZ390o4U0TFjUiFzR8odWZuJ3+tV81bbvKLIsyexddqXowWpekSAIshwIWJOPDOeya9q9vVsiCcWnsh6HcsWtYqw6j6h1qKSgX7N2ZfdPvu+zHqW6O0a9m0InxVH9AtsLpNE2C3plYa67Th4UAwYUFEhOxKe5UtnX+1B2p3ZmuG/Q9T5QnqFowK+6MxptLXaZ86bU1yP1efTkb/wAVIkuX4Tg90T2lspaEzhjaFi9pJB4ct0xWpYsar91Y13z6pcJxKuumxy1xWnL+RThuJIF1YOLeaK6Zab5U2ckZVHmEOhGNK/ro8u+UUxaqxlYsfUhtanqxMzfAcC91eH8ZdXGNIVSoehwjE1qY6k3GhKyPkYsPclU9s8PCfGKh0raS7LPrNlYietqi9WtK0ZIFKyrlbVY+Etl8vjE62+Khk2casv8AgNdRwSR7vahWVvKq5FWPSYnRSZ4E8/Fz1J3k91/w6og2dPF85tC5csm+6vLGPlV/FV0pQ+ptcY65mvhOXpPABakJR8FXYolE271GguGNMbPWz05OnOdJRIR4ZDuuv4bb5/Vj08MOJ52abIsWzVZ0cy0e1AU7QFcVEDVQWAHxkYW+JUsSkSTOXv4K2Sv2Q8qtfsE5PSnL+pZjkYPnTUeMCOwrEjHNG2Uuq6++KaFWGL4wxvmwiDPiQvk+b14kz4p7rpeU9kSrGsvhB/NTXiEo2NSx7ifPElezent/q+DLHyAtJxH1vWo7IW79MWUqhHLN+BLlo6wS371TQtKvOa0znOXtSjSeiW0orQ2JZvv7QNCUHRz8BUpli8/Pbt2xnJkgr7RLUbMlIIbhhWFOhrJ2BZUpqTwnxvXOLDAIWiWzjizzWpsqtXX/ACx3TUispknDdLYriq7v9/dKc6/s3nXVaFKyulj4hJp4tbQxWbe2ZcsdZqrtGMHNwt14t1c5qnemcrtl38sZ2bldf4mX7CoIHhdZMTNKQhCb5Fr31L984i3QitTDK1/r3RT6fBJawk+8mjuJBqrKddKL9+Juy75rR3mtaiMn6zHvR7ptR1kwyvmLZzloUjmJ3/D1T4f5xN1B9TChcNWNmWzbPRz0L3t1V/dw6rvOCSNlyxMx8fuK70hOtZtUR1yWW7wusCObgTuYb/8Axz++FkfpLN1kRB7u+TwYZb05dn/nDDojpg+UMjkZBuAAyR53OKiSpzxzlsunO+c7vOUD1VLf8ly+YRXf4p4dl09kpTns4/dCbcmClqWVtMJ9bCzrVjyTcboIRrRi7ZZSUrv23/8A1fdK8NAdfbVPWH3pOpOdRdJARida9zdxpJvTu6py+E4y7otK2pleb1NzUxjeg36a17RXHYxdSfK/rnLhGifyWGhWNinJXzVzrB6iRBxnxILjShEsU+u++d8JXlcVGbVeRoW2tbKxZsyUzk9b38/Lx4Ee7v2yiAeW4c5I22U2zPXrIhWH4S+6AO3FsRUz0UJy5ETM3Eb+63Em/ERWG+d3HZ2tidl98oOk26s9aGpEasdZGTHgGtfb6tsk7Ee6U1+1dCytI3IapGq8S96DWGz6jkdPhNmWWvATm5S/a+MZMtRZW1bqvVGsasyqWechiIYukFUjEqc9iEzxqu8pTib0vaRhMTN7PUcWsjGhKyEQvdWtXOVf2tv7spRCaO7e0d08b+k2LkuWTmA7eHug2OS8heSNQRTq2SRiX644E0tnTk3yUpMwaOx403TV+E57PKLT0zuqa+t56TZMfRzerMhvTg52AqlLQvu4zHf8YqVLorUxM3MGMnb5/wB8u+MxrizCbcR2SplbcrqzZyQfrMeBS0cVXS7MemNV+cNRFJlkWpZEexx/HhHFVTcug5RSjJ7e9+MruPxjg3athG6UmYT2P+YNiv3GZGX7QqsXaErqvN6mUvKAy/3Vf7znP4xs6tUJhpQ0VvKG65QjgGcxP2glw7ivhPjLuvTGHWNFLyhWxSDJg5PBzY0/+TlbkVIpoqZXCzIQ5EhBl7+DF59W2EZJlinVvtr2CRmTqpSK5Z42VXaO9prgn04FIxrTzrpq2K+EMkqj9BbeC0e1xm4ploRNnLc61cojsL/ynKd8Y+0uaNHVhq9lNi67RneJbF8jmrR9HPwrlfw+1D3xStxOWFQGpo+WjRX5HY8p5Xc3oyAGj96f/MUGxbF9UIhMvpPYi8NAtP8A0PUXzmpuaayAtKz5HrUYZywz8uuF7pllVYyhYw4q8jFsaUrdtbM00gmJdZqJMXMxcl7X4xUtHdFqdpKE2YlI5qo1t1nOhasXOlNd6086U5zXOctvXEDpEqLF1apw6o+sjZDQlG+RXK7vOnin5/wg30NWTqbG19OfVMWpZ4M4Y0c7BhXzpdmfD7M4nUg+HSrL9CvRVWPl9S9TJyoaK4RLYYbGFmxZs+qRyYqxAmtWXxGUKOmUWFFXcX3CuJBEOKGqil+iiXHTRfSx7UxLk9FHkJIWxPRRyRqDBlOobOFPsnpYm3AC/rIYumsJ7I8sykOlrm/rCRDWytdZ6yFS9DthNqjaHApa8zfA3X2U+3Prn7oJCIdCD6wf0a0dj/mMo6RrNWms9UiFqbZyQZF8m+RiWIv2+qflPbDnS47dZcpF1qZvGkePi2hMW+VXLX170w+fEcvcGDAfsITfw6ky28OECnoh90Wql+xv/wAsdA2hqbYOUUoyfXRvfVviWoteKU3zYf70e0eTp0nPKqEaOO7pwotGHNlbMvn1SGJrTHLlx9RXhuV+F8GjjRdati8H+gx03P6Nazo/a3Zzn+Ec7E2ndUN5r2ojIQfjOtH8s5QRWv0q2mrgR8nSWWX0eQCeL71rnEa4ltdz+JVlL9vb9QWPtEtP5hdZn8n1rUmebaKu5n6inI/iRf8AtL3xUWlilWesNUiUhi6GRwBfRtV41fbmnr98R9Wtjauph1F9aGpOR/3VB1ISv3oRdJXxlDFNnnVTDyTYYxjR6/cT9W7j+ECivltfABPYy3HKd+4M0+1ldbV4dYE+I2cARgGvwCT2Jy7Uts9k+N8CdSJOqVioPxjGPPOQ2BG6lGNU54Uy7uMHDrRva9y7ymzHMZ+wtKE/xvj43sc6pjwjV0IY3A+f2/qwxDdQs1WZ+RCvo5mWiqvFQFSkQulF0kTFN1Eoc18XlPWb+BX39r4xN1Ky4ui1og/2Y9UfR9THVN+XWmE2qrvM1FrkY0rWkiBozFpneiS5zntnLCm7EqfVNxbqNvEltAygdWDC1zKbFGVuDmLQhKMap85W7Hlm8LyeUXLIPo/4Q0SOHDdoUuXlRpmOVci4bA1OmFo7h9U2IyEBhzMaN0uFK57PO6cpfCURNQOVy8I5KXMIdeMi4nbPtaEWjsrM0x8R7WaluEdb4gCWtSMpE5KlwlPZOctu1fugbqDF9TKk4plTbEbPQLwEAvx/6pecEs5I1bJjrmOTxEomVD2h0WsWhNqtHYkc5nSL5gke1OfCOdk6YKu2qZMXRcsePGTHzV4duGNCjSKmBGJiXo8KBoRzYV6p1vbbbjGum9K3FykKlr2jSsWeZ69miqTYY0rOsCMCm/1pdqXn+7DNuzzWeULwKy/2Y0Gx5KjuHxRE1MfTrX0Xdhv4dcVdWrNFa14jaji1luRGdgBv5SPPulLvnswxPtuoyMvIcuLKNW4lBgZNHVGcEK5IxqLTcQyyVlSVHBXLSvy53z2yXK7rkqWKcRVGpZawYYtZZNsx0kOYcyBJxr81TTJOyXXcnzlfBdpADqNqisWpG2W+QlZMhaVpxq7pp2T3kznfKc+M4gU2TJ86fPhjbk3+QxL3PPFdDu4ojtsPXdApdGqTdrOrsnr0BkrONqRJUounPdQdBLlT2dSLk7L/AD0D6Vty6sq41Vj4jVI5DoCpa1b6kSxLlPBKVyNnZTFIHFSKHWGVNYsc0k8tbsBOlyuKULn2VrlxlLmX+UT9sLftbQ/KnLb5aRBs/IwoSXEheFS0J2Y+Zt8oBKu4oSNttiItQ+fNak4avsvWN4PtI3r9u3+tkPdF7n0YZ7Uy/NwMVLJ7a9mFP3rlP4fWu9uqdWLX2DoxWwtdqNJzgkQvAg60LVjEmU1TxllK6ezsqJJPXKUQdCcFYAFN02ej+cD3wrQnHsnsWqd2KS9k5SRfK7bA9viORzcux5eM9RyyidDckd+wrCj/AJ8Upd0GWhmjCfVJw6dORjG0Rnn8KBYZzWv2bvfAazYlfVjKYtic9O+vfV9Xd50XxQbFFa6NyC1obao1rFkA3cRVpTPBjR2kY7tnu+OgbL7SrNKj4VTtU4Kx5NkNA2rRC0KxIQlPNn7d853+1OB0Yyi5IosyI11rLV4MrkuZmL5TxY/PzgkZkEX9ZA24iLHlipr9EOOFqji1NvlC5TH/AKYcmp4ulbFy/YJEW+UUrMjUouUH0cBXyyBsTVk6k2zuV6P1kStm61qpsrN5Qe5+zFaN3MOdeLnZsEms1cysmJd7OslKEgil6RfKQdWdpX54WVe2Uc8o3doxtF/3dwnmK91+xXsznGdqXWS8mXN5T1kWnodtMVjaplyuYMi/62RIa3a3bIYVsgMJTisTEpjpiRs4Biz0LQrFj85dmUv84OKXUmrXRuOmMXPKO33L/UQmW78ZzlF46aWrGpUeovmoh+kAAHreWPeKLwzn2pIvvu/4jOSs3k9V6Mfg7CE7VK9mDt/ELsMytAq0GDNyItS+XORjZDOk5F+BCdqle6UuqJa2On3X7V0a0tCs9VhU6m5mPP3EuMV26rBfK6V0+ufGIS3tnKmWzdOL82JWqpqoPYRi3lL8KJf5d0EFmnZaRQntIf0go2aGpMBALSvNEm6WxHunL8YdWXbj7/cBZGkfy8f+zQWi/SDR7fUfXmOYIg8OeBfOFi/mlBcocY7/ACR31TbaZiMeU1J3TiZ41owbiLpoXd39X2pxsaN16ZHJyXswhW4ZWxOWXCj1ihQT4Gf3md6P2nkbYQvVRzIh0XohRMJIKO6nQhBhfbGMsQbdUxyXpcuI1VI/VQSOn3/jiPdVDK5UXSQFljDRtIQpqQXJ/wBGCIx8zyg5RRdJ2F9v3xLuquUvrYH3zzpM0pCQq0KsNRzSKAdasTYZ0YmbZlkMnjBiF/JdA+rR3Zlt81bOR/8AnV/qg2fVJqU3Jcn9eIepKzeiKT9iA/MxxzHo5seWIMGs1Qm395/96ojzUimFNlCbZn11qX/NOJwycrpSw3IQQjZsDxb3BmupGGrWzhf1bYfsYYlKfR2IvnJf2FxDOlOi8k1KTlFw9pNKLndKTmdvcgckfHyBrJk3iTynYmJiasLM+3A3a6psdTI+qbUeWjpF8xSEeU4JNTYtf1jjxrXAJphVTCULVnPbxL/ZuQq7z5T8IxYxUa4XsfL6bG3Yj7UVep2LkTVqFTXtnR1QwXyCE1hyLHvCEYnEd45yulwUpM8U1Ybk1zpCm2IdsakPhuGR8RGpEGvLg60FTxQRGy9PnKcr48OQVi0Ndc+iGr30g7GnWmqOldeJWBPPlOaZT9+9DipWZGxs3TpOXQxVD0i8G7Au9BWq0ZacCpK4Tnxj2VMVPJaMw3t/T/8Aq946EOQ29Tw1MHhUJwmRU3eUsU0+9M5dUM1clyWV+xE5Sn9Mfs29nn1TEPUzK9Guj35QkK2qAvDKe7Ne2U+CZzn41XFjXRPbByzbufRg9XOvANeehaVrUq5N00Tniv6ro+sxy8fEAGNQdNXjcoilGQa0r5/M+MXLXqe+tfR6VaEXKOAI1J2vtL9YhU/PaT7Mpd0JroGtWLlXImzb/HA6/wBIpxLpYl0Z01yWu5ZG50YMDXEvH1pVeqUsN0+/zgbN7Qiry5AzQbPPmNeZOii1bl+fj3va5vlBLXbZCYmc+jCjG3aYdberHjSJa1TkgAx+tMucuHNTdNSuCrhO0Fr6w5puvNmo6KyJ0bp9hFj+pLnqvl1olOK8qdr3zmgDs9THBBsmiCG5BEg414d9a59JOfxlK7ZhhRbXckykHPiljjxjCWtWqK+zC2mtMVll/NGK8bg/fvSTcgPHyn5YYYOrdsfzPJTKRQmzZyciVnfI3ylw7UpXNUr7uM4rlmDNNlZo49Omrlr+rh/bWgjuMPRkdOXf6zBnD39wW9KeLyldi++JejLKT51V28uUHgyTpWrnbyrk7bpSlP8ACBdyGbaWUUhBub98ODmXKnKaV9aVSnLhd1w+Yg16pU9jTRkHjy0EXtxFWrapV3xul7pd8fWUGrB/pCbUMbtkSkVNu3Zk1hetuMfygs1KzSkuvXfPmoRgvkmaJq2rnAHS1PuVK25TM5Fa0IxqwbMV0p7ZSnslfd13Q6MeTaoyFUxDqozgHfjIoSm61JvVhWnYmcpz4zkqV0Naen9Jaq2Fmb6svfTv4b+E+1wj6vicwTVltXGNXbvqZQ8xvSWo1/NcaUILfvE/FG3ulEkq1tLtULUak2HTqhmJyyY+QWrhgWvnpROWzbzdnZldEPap86FOlVNiUosxjjAcG4pGFRBquInb2PxiEqzt9Uwt9aciIMfRryBIV8ZplKap+++MVXuEXLHiFbWvls7WCManTPRz0C99C/VbssPw65T2yunLDsuiwbAptC+rzJ0xdDbOCYctbo+PHh3E3eGU54J3eIclbIqykWmEVm3o9r2PpanNNxo6R88ZI8KJ9sfHk17vhwxZtDYsSsxvqPmVIZD4MxB1YcCtiE3plLATvQuUuO7enbH1o1DJcsvoRWmiyrqhW2ynLYjbPANZMf0uGUi3T4Klj23+1KBBqQrXks2NCaaqc1baPacV0XMcEQlYCY1lUhfb2q2plPrlfP4XSTPPZlC9bCreWIuyjlL7NjkQ/wCtiLcDdfSwwMlyL1saWNQeI5qQhZ2aKGyXQo9DbOih+kiUZpFkj5KCZYmWjI1u+yoONGLsorVU4vq89OZ+1fDAZGIsspWw/ATc8Sed8Ilkj/u3SA8HbhW4kVlxxOVcTWyWzr0849MZZKdUgERjRzV40yklM8PN2TjG1q7cWva1iq0J8IdNcgWqn5DVGBDdCFzx4cU9s57Ns+qUX1YW3BawFuxqZSEb4EgP4keFcvOUA/5VFhdRtJSrYNeVHVkZDtf/AOQhO6v7Y5ftJnC/TsVZlYYbLEpP0u+YmbCfuXrlvnpMtCzzXucFJlJWyU4K6DboTZ43dOXznMBhR7OV4cHxnPjPelKBtQGr55lZWZl7g/bj1WqLTGPJNXWZ0e/gwb6k3qTvd3fFSSGOTyNRTSR+JrL8ldNmX1HqNoWrlk5tFUjk1tGNOa3ElWAQsHG65Ep39c74uyMGaNUio7xlaGmFINwwXnj30oVu7FbVd8tnxja1hbVUy2Fm29cphSZZNwiF84S085Cpd8v9oHJdbOK49jlj3ORM5cKPc+MKGt4HtjPXhCN0seDVUWTChRCaRiwsajAz4pfo4buFC9aWFCgNK6m9CMfORC6JqQg/HmJR/NEDXKk11PlRE/cxfxhQoPIi0+hyU1AtxV+W5JqTL+zDeoVpsLpRF/dhQon6Uy9B/SmJGkfCcm+bdiPhGxelyssftwoULNK1AtEpUSSi5MXrIkDOsoOUWFCjdEpUyrVpkNk1AWdENbiiUy1NIEyKQjdwPfAZHZ4ffLZL7oUKGl+W2qitUpJTRgCtRYt01puvCcick5h1oRyvNuxe1/zAcai1x9ll6Qe6jHjxpwJukn7pXS+EKFFO1uHde5LuoERuJN2jsgJjTqflEFlkApZ3R9xWPFNGG5XN4Tnd5yiPpTtjS6w3cuXzgo2PLAyFrTgKlO4rZ3TlKFChm3er07i0yUVuwWvNK2kOuPHtcY1OrDy9zk1qXlIUqc0pnLgq7vugQtVai01qzfpOpuXpCYUez9ydkKFBlr3qC04nayVjanOpDKJsV7gImZGoUbpUyVepE5q2cO+DRjorrGS4yhMmQz9JjOpasGK/B7r5S6+qFChSSd6V0H7W3R6a1oC1t9Hlcs8Cb59Ns4p/bdMl9Fi2Jxp43X9e2GFGBr1HIMpMwiF4Pa71K+7bChQeOSrprUXljVH0oRNSoJWrPXvV5+R9vDfHpBCtngyjLllBhwEQTHgWi7CqS+Gy7ZdshQoLSuqgK00ONWda8YjkvSE3yYIlLASI6tE3KXmMEKXmLXNXZwpRvTulKXVdKFCjnrpFU+U8lHDtQxhZUgvKDaAy/Z3yrL/8kvulDIbQRf7UMQ/r9jj/AJwoUZao3FTUkKWz5Yb4TUdSy1pzGuDno9ydt226+XfBmO0r6wVRZ2isrRBshu8QD54OT3tuCa0ylx2zlPs4b4UKBVpq6g5PSoXVDSbR7TU0dMfUflOedjVcKBc65KxuErlPjsvXOe9OURFQszZl0HNKKv2XITo1umuts/gROCf3Y4UKNtSmuoPX6EI+0e10v/Z9SrQ//wBcdKy/aEu4n4Qwpujy2lTNlNbKVImXudBgwe+aubChQPTU1hShZVi9Db5iHWbTZjYhP7CDnI96+G32L/fEJpS0YOaO89J2ZbEcsvXsUYllF7UpcZy/GFCifI9Um7D9I1rD3Ky1kReih9S3b7O+TCIQg+j/AK7oUKHG8SQ1A9oLF0XlXLrVic/kP94OLWVAVT0J1li5LrrhgsZgeJG9JCtvZ5/8YUKJ0VdZg6mb27FznfJS5m/g9qHqaRU32WIQhjy9/fxe/Fuyn3QoUWWqfFoGVnaY1oervnzrVh5+Pc3wLwq3cU0znsv2T4fCLs/JrtG1LWLVUwTbLzz+kFrQhSBY1XYkyldw2yu283Z1XzUKPlv8xuRubgvYu7WxQoUKKOwgtnU//9k=');background-size:cover;background-position:center 30%;filter:brightness(0.22) saturate(0.6);z-index:0;}
+  .header-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,2,4,.45) 0%,rgba(10,2,4,.15) 40%,rgba(10,2,4,.55) 80%,rgba(10,2,4,.95) 100%);z-index:1;}
+  .header-content{position:relative;z-index:2;}
+  .shield{font-size:2.8rem;display:block;margin-bottom:10px;filter:drop-shadow(0 0 18px rgba(227,28,35,.7));}
+  .marvel-logo{margin:4px auto 12px;width:clamp(160px,26vw,260px);}
+  h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.1rem,3.5vw,2rem);letter-spacing:.38em;line-height:1;text-shadow:0 0 40px rgba(227,28,35,.35),0 2px 12px rgba(0,0,0,.9);text-transform:uppercase;color:rgba(232,232,240,.82);}
+  h1 span{color:var(--red);}
+  .subtitle{font-size:.75rem;letter-spacing:.3em;color:rgba(232,232,240,.55);margin-top:10px;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.9);}
+
+  /* STATS */
+  .stats-bar{display:flex;justify-content:center;gap:36px;padding:18px 20px;background:var(--surface);border-bottom:1px solid #1e1e2e;flex-wrap:wrap;}
+  .stat{text-align:center;}
+  .stat-num{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--gold-light);line-height:1;}
+  .stat-lbl{font-size:.66rem;letter-spacing:.18em;color:var(--text-muted);text-transform:uppercase;}
+  .progress-wrap{background:var(--surface);padding:0 20px 16px;border-bottom:1px solid #1e1e2e;}
+  .bar-bg{background:#1c1c2e;border-radius:99px;height:5px;max-width:760px;margin:0 auto;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--red-dark),var(--red),var(--gold));border-radius:99px;transition:width .5s ease;}
+
+  /* CONTROLS */
+  .controls{display:flex;gap:8px;padding:10px 16px;justify-content:center;flex-wrap:wrap;background:var(--surface);border-bottom:1px solid #1e1e2e;position:sticky;top:0;z-index:10;}
+  .search-wrap{position:relative;flex:0 1 220px;display:flex;align-items:center;}
+  .search-wrap input{width:100%;background:#0d0d18;border:1px solid #2e2e48;color:var(--text);padding:6px 28px 6px 10px;border-radius:3px;font-family:'Barlow',sans-serif;font-size:.74rem;letter-spacing:.04em;outline:none;transition:border-color .18s;}
+  .search-wrap input::placeholder{color:var(--text-muted);}
+  .search-wrap input:focus{border-color:var(--red);}
+  .search-clear{position:absolute;right:7px;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.8rem;line-height:1;padding:0;display:none;}
+  .search-clear.visible{display:block;}
+  .fbtn{background:transparent;border:1px solid #2e2e48;color:var(--text-muted);padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;transition:all .18s;}
+  .fbtn:hover,.fbtn.on{border-color:var(--red);color:var(--text);background:rgba(227,28,35,.1);}
+  .abtn{padding:6px 14px;border-radius:3px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;transition:all .18s;border:1px solid;}
+  .abtn.green{background:rgba(45,122,45,.12);border-color:#2d7a2d;color:#6ec46e;}
+  .abtn.green:hover{background:rgba(45,122,45,.28);}
+  .abtn.crimson{background:rgba(227,28,35,.08);border-color:var(--red-dark);color:#d06060;}
+  .abtn.crimson:hover{background:rgba(227,28,35,.18);}
+  .abtn.next{background:rgba(201,150,12,.08);border-color:var(--gold);color:var(--gold-light);}
+  .abtn.next:hover{background:rgba(201,150,12,.18);}
+
+  /* ERA */
+  .era-block{max-width:880px;margin:0 auto;}
+  .era-header{display:flex;align-items:center;gap:14px;padding:28px 16px 6px;}
+  .era-label{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.2em;color:var(--red);white-space:nowrap;}
+  .era-line{flex:1;height:1px;background:linear-gradient(90deg,var(--red-dark),transparent);}
+  .era-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.1em;white-space:nowrap;}
+  .era-desc{font-size:.72rem;color:var(--text-muted);font-style:italic;padding:0 16px 4px;border-left:2px solid #2a2a40;margin:0 16px 2px;}
+  .era-progress{display:flex;align-items:center;gap:8px;padding:0 16px 10px;font-size:.62rem;color:var(--text-muted);letter-spacing:.08em;}
+  .era-bar-bg{flex:1;max-width:180px;height:3px;background:#1c1c2e;border-radius:99px;overflow:hidden;}
+  .era-bar-fill{height:100%;background:linear-gradient(90deg,var(--red-dark),var(--gold));border-radius:99px;transition:width .4s ease;}
+
+  /* ITEMS */
+  .items{display:flex;flex-direction:column;gap:3px;padding:0 14px 20px;}
+
+  /* ROW — clicável para expandir */
+  .row{
+    background:var(--surface);
+    border:1px solid #1c1c2c;border-left:3px solid transparent;
+    border-radius:3px;transition:border-color .18s,background .18s;
+    position:relative;cursor:pointer;
+  }
+  .row:hover{border-color:#28283c;border-left-color:var(--red);background:#13131c;}
+  .row.done{background:var(--watched-bg);border-color:#1e451e;border-left-color:#3daa3d;}
+  .row.done .rtitle{color:#8ccc8c;}
+  .row.done .rnum{color:#3daa3d;}
+  .row.expanded{border-left-color:var(--gold);border-color:#2e2e20;background:#141410;}
+  .row.expanded.done{border-left-color:#3daa3d;}
+  .row.hidden{display:none;}
+  .row.next-up{border-left-color:var(--gold)!important;box-shadow:0 0 12px rgba(201,150,12,.15) inset;}
+  .row.next-up .rnum{color:var(--gold-light);}
+
+  /* ROW TOP (sempre visível) */
+  .row-top{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
+  /* SINOPSE (expansível) */
+  .row-detail{
+    overflow:hidden;
+    max-height:0;
+    transition:max-height .32s ease, padding .22s ease;
+    padding:0 14px 0 56px;
+  }
+  .row.expanded .row-detail{
+    max-height:200px;
+    padding:0 14px 14px 56px;
+  }
+  .sinopse-text{
+    font-size:.8rem;color:rgba(232,232,240,.7);line-height:1.6;
+    border-left:2px solid rgba(201,150,12,.3);
+    padding-left:12px;
+    font-style:italic;
   }
 
-  header {
-    text-align: center;
-    padding: 56px 20px 36px;
-    background: linear-gradient(180deg, #1a0204 0%, transparent 100%);
-    border-bottom: 1px solid #2a0608;
+  /* chevron indicator */
+  .rchevron{
+    font-size:.7rem;color:var(--text-muted);
+    transition:transform .25s;flex-shrink:0;
+    line-height:1;
   }
+  .row.expanded .rchevron{transform:rotate(180deg);color:var(--gold-light);}
 
-  .shield { font-size: 2.8rem; display: block; margin-bottom: 10px; filter: drop-shadow(0 0 18px rgba(227,28,35,0.5)); }
+  /* next arrow */
+  .next-arrow{font-size:.75rem;color:var(--gold-light);animation:pulse 1.4s ease-in-out infinite;flex-shrink:0;}
+  @keyframes pulse{0%,100%{opacity:.4;transform:translateX(0)}50%{opacity:1;transform:translateX(3px)}}
 
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.2rem, 7vw, 4.5rem);
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-shadow: 0 0 40px rgba(227,28,35,0.25);
+  .rnum{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--text-muted);min-width:26px;text-align:right;flex-shrink:0;}
+  .rico{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+  .rinfo{flex:1;min-width:0;}
+  .rtitle{font-size:.9rem;font-weight:600;line-height:1.2;}
+  .rmeta{display:flex;align-items:center;gap:7px;margin-top:3px;flex-wrap:wrap;}
+
+  .badge{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:1px 6px;border-radius:2px;font-weight:700;}
+  .b-film{background:rgba(227,28,35,.18);color:#ff7070;}
+  .b-serie{background:rgba(110,80,220,.2);color:#b0a0ff;}
+  .b-especial{background:rgba(201,150,12,.18);color:var(--gold-light);}
+  .b-animacao{background:rgba(0,160,210,.18);color:#70d8ff;}
+  .b-short{background:rgba(80,180,120,.18);color:#80e8a0;}
+  .b-extras{background:rgba(80,80,80,.25);color:#aaaacc;}
+
+  .ryear{font-size:.7rem;color:var(--text-muted);}
+  .rstream{font-size:.65rem;color:var(--text-muted);font-style:italic;}
+  .rnote{font-size:.62rem;color:var(--gold);background:rgba(201,150,12,.1);border:1px solid rgba(201,150,12,.2);border-radius:2px;padding:1px 5px;}
+  .rnoncanon{font-size:.62rem;color:#888;background:rgba(80,80,80,.15);border:1px solid #333;border-radius:2px;padding:1px 5px;}
+
+  /* CHECK BUTTON — separado do clique de expandir */
+  .rcheck{
+    width:26px;height:26px;border:2px solid #2e2e48;
+    border-radius:50%;flex-shrink:0;display:flex;
+    align-items:center;justify-content:center;
+    transition:all .18s;font-size:.72rem;
+    position:relative;z-index:2;
+    background:transparent;
   }
-  h1 span { color: var(--red); }
-  .subtitle { font-size: 0.8rem; letter-spacing: 0.3em; color: var(--text-muted); margin-top: 8px; text-transform: uppercase; }
+  .rcheck:hover{border-color:var(--gold);background:rgba(201,150,12,.1);}
+  .row.done .rcheck{background:#3daa3d;border-color:#3daa3d;color:#fff;}
+  .row.done .rcheck:hover{background:#2d8a2d;border-color:#2d8a2d;}
 
-  .stats-bar {
-    display: flex; justify-content: center; gap: 36px;
-    padding: 18px 20px; background: var(--surface);
-    border-bottom: 1px solid #1e1e2e; flex-wrap: wrap;
-  }
-  .stat { text-align: center; }
-  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; color: var(--gold-light); line-height: 1; }
-  .stat-lbl { font-size: 0.66rem; letter-spacing: 0.18em; color: var(--text-muted); text-transform: uppercase; }
-
-  .progress-wrap { background: var(--surface); padding: 0 20px 16px; border-bottom: 1px solid #1e1e2e; }
-  .bar-bg { background: #1c1c2e; border-radius: 99px; height: 5px; max-width: 760px; margin: 0 auto; overflow: hidden; }
-  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--red-dark), var(--red), var(--gold)); border-radius: 99px; transition: width .5s ease; }
-
-  .controls {
-    display: flex; gap: 8px; padding: 14px 16px;
-    justify-content: center; flex-wrap: wrap;
-    background: var(--surface); border-bottom: 1px solid #1e1e2e;
-    position: sticky; top: 0; z-index: 10;
-  }
-  .fbtn {
-    background: transparent; border: 1px solid #2e2e48;
-    color: var(--text-muted); padding: 6px 14px; border-radius: 3px;
-    cursor: pointer; font-family: 'Barlow', sans-serif;
-    font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; transition: all .18s;
-  }
-  .fbtn:hover, .fbtn.on { border-color: var(--red); color: var(--text); background: rgba(227,28,35,.1); }
-  .abtn {
-    padding: 6px 14px; border-radius: 3px; cursor: pointer;
-    font-family: 'Barlow', sans-serif; font-size: 0.74rem;
-    letter-spacing: 0.08em; text-transform: uppercase; transition: all .18s;
-    border: 1px solid; 
-  }
-  .abtn.green { background: rgba(45,122,45,.12); border-color: #2d7a2d; color: #6ec46e; }
-  .abtn.green:hover { background: rgba(45,122,45,.28); }
-  .abtn.crimson { background: rgba(227,28,35,.08); border-color: var(--red-dark); color: #d06060; }
-  .abtn.crimson:hover { background: rgba(227,28,35,.18); }
-
-  /* ERA divider */
-  .era-block { max-width: 880px; margin: 0 auto; }
-
-  .era-header {
-    display: flex; align-items: center; gap: 14px;
-    padding: 28px 16px 10px;
-  }
-  .era-label {
-    font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem;
-    letter-spacing: 0.2em; color: var(--red); white-space: nowrap;
-  }
-  .era-line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--red-dark), transparent); }
-  .era-title {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
-    letter-spacing: 0.1em; white-space: nowrap;
-  }
-
-  .era-desc {
-    font-size: 0.72rem; color: var(--text-muted); font-style: italic;
-    padding: 0 16px 8px; border-left: 2px solid #2a2a40; margin: 0 16px 4px;
-  }
-
-  /* Items */
-  .items { display: flex; flex-direction: column; gap: 3px; padding: 0 14px 20px; }
-
-  .row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 14px; background: var(--surface);
-    border: 1px solid #1c1c2c; border-left: 3px solid transparent;
-    border-radius: 3px; cursor: pointer; transition: all .18s; position: relative;
-  }
-  .row:hover { border-color: #28283c; border-left-color: var(--red); background: #13131c; }
-  .row.done { background: var(--watched-bg); border-color: #1e451e; border-left-color: #3daa3d; }
-  .row.done .rtitle { color: #8ccc8c; }
-  .row.done .rnum { color: #3daa3d; }
-  .row.hidden { display: none; }
-
-  .rnum { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--text-muted); min-width: 26px; text-align: right; flex-shrink: 0; }
-  .rico { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
-  .rinfo { flex: 1; min-width: 0; }
-  .rtitle { font-size: 0.9rem; font-weight: 600; line-height: 1.2; }
-  .rmeta { display: flex; align-items: center; gap: 7px; margin-top: 3px; flex-wrap: wrap; }
-
-  .badge {
-    font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 1px 6px; border-radius: 2px; font-weight: 700;
-  }
-  .b-film { background: rgba(227,28,35,.18); color: #ff7070; }
-  .b-serie { background: rgba(110,80,220,.2); color: #b0a0ff; }
-  .b-especial { background: rgba(201,150,12,.18); color: var(--gold-light); }
-  .b-animacao { background: rgba(0,160,210,.18); color: #70d8ff; }
-  .b-extras { background: rgba(80,80,80,.25); color: #aaaacc; }
-
-  .ryear { font-size: 0.7rem; color: var(--text-muted); }
-  .rstream { font-size: 0.65rem; color: var(--text-muted); font-style: italic; }
-  .rnote { font-size: 0.62rem; color: var(--gold); background: rgba(201,150,12,.1); border: 1px solid rgba(201,150,12,.2); border-radius: 2px; padding: 1px 5px; }
-  .rnoncanon { font-size: 0.62rem; color: #888; background: rgba(80,80,80,.15); border: 1px solid #333; border-radius: 2px; padding: 1px 5px; }
-
-  .rcheck {
-    width: 20px; height: 20px; border: 2px solid #2e2e48;
-    border-radius: 50%; flex-shrink: 0; display: flex;
-    align-items: center; justify-content: center;
-    transition: all .18s; font-size: 0.65rem;
-  }
-  .row:hover .rcheck { border-color: var(--red); }
-  .row.done .rcheck { background: #3daa3d; border-color: #3daa3d; color: #fff; }
-
-  footer { text-align: center; padding: 28px; font-size: 0.72rem; color: var(--text-muted); border-top: 1px solid #1a1a28; }
+  .no-results{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:.9rem;display:none;}
+  .no-results.visible{display:block;}
+  #scroll-top{position:fixed;bottom:28px;right:24px;width:40px;height:40px;border-radius:50%;background:var(--red-dark);border:1px solid var(--red);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:100;box-shadow:0 2px 16px rgba(227,28,35,.3);}
+  #scroll-top.visible{opacity:1;pointer-events:auto;}
+  #scroll-top:hover{transform:translateY(-3px);background:var(--red);}
+  footer{text-align:center;padding:28px;font-size:.72rem;color:var(--text-muted);border-top:1px solid #1a1a28;}
 </style>
 </head>
 <body>
-
 <header>
-  <span class="shield">🛡️</span>
-  <h1>UNIVERSO <span>MARVEL</span></h1>
-  <p class="subtitle">Ordem Cronológica dos Acontecimentos · Completa · 2026</p>
+  <div class="header-bg"></div>
+  <div class="header-overlay"></div>
+  <div class="header-content">
+    <h1>UNIVERSO</h1>
+    <div class="marvel-logo" aria-label="Marvel">
+      <img src="data:image/jpeg;base64,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" alt="Marvel" style="width:100%;height:auto;display:block;"/>
+    </div>
+    <p class="subtitle">Ordem Cronológica dos Acontecimentos · Completa · 2026</p>
+  </div>
 </header>
-
 <div class="stats-bar">
   <div class="stat"><div class="stat-num" id="sc-total">0</div><div class="stat-lbl">Total</div></div>
   <div class="stat"><div class="stat-num" id="sc-done">0</div><div class="stat-lbl">Assistidos</div></div>
   <div class="stat"><div class="stat-num" id="sc-left">0</div><div class="stat-lbl">Restantes</div></div>
   <div class="stat"><div class="stat-num" id="sc-pct">0%</div><div class="stat-lbl">Progresso</div></div>
 </div>
-
 <div class="progress-wrap">
   <div class="bar-bg"><div class="bar-fill" id="bar" style="width:0%"></div></div>
 </div>
-
 <div class="controls">
+  <div class="search-wrap">
+    <input type="text" id="search-input" placeholder="🔍  Buscar título..." oninput="onSearch(this.value)">
+    <button class="search-clear" id="search-clear" onclick="clearSearch()" title="Limpar">✕</button>
+  </div>
   <button class="fbtn on" onclick="setFilter('all',this)">Todos</button>
   <button class="fbtn" onclick="setFilter('filme',this)">🎬 Filmes</button>
   <button class="fbtn" onclick="setFilter('serie',this)">📺 Séries</button>
   <button class="fbtn" onclick="setFilter('especial',this)">⭐ Especiais</button>
   <button class="fbtn" onclick="setFilter('animacao',this)">🎨 Animação</button>
+  <button class="fbtn" onclick="setFilter('short',this)">📎 Shorts</button>
   <button class="fbtn" onclick="setFilter('unwatched',this)">❌ Não assistidos</button>
   <button class="fbtn" onclick="setFilter('watched',this)">✅ Assistidos</button>
+  <button class="abtn next" onclick="scrollToNext()">▶ Próximo</button>
   <button class="abtn green" onclick="markAll()">✅ Marcar todos</button>
   <button class="abtn crimson" onclick="resetAll()">↺ Reiniciar</button>
 </div>
-
 <div id="root"></div>
-
-<footer>Clique para marcar como assistido · Ordem pelos eventos na ficção, não pela data de lançamento · Atualizado maio 2026</footer>
+<div class="no-results" id="no-results">Nenhum título encontrado.</div>
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">↑</button>
+<footer>Clique no item para ver a sinopse · Clique no ✓ para marcar como assistido · Ordem cronológica ficcional · Atualizado maio 2026</footer>
 
 <script>
-// ─── DATA ────────────────────────────────────────────────────────────────────
-// type: filme | serie | especial | animacao
-// canon: true = MCU Sagrada | false = universo paralelo/não-canônico
-
 const eras = [
   {
     id:"pre", label:"PRÉ-ERA MODERNA", title:"Antiguidade & Passado Distante",
     desc:"Eventos que precedem a Segunda Guerra Mundial na linha do tempo ficcional.",
     items:[
-      {id:1, title:"Olhos de Wakanda", type:"animacao", year:"1260 a.C.–1896 d.C.", icon:"🐾", stream:"Disney+", canon:true, note:"1º cronologicamente — 4 episódios em épocas distintas"},
-      {id:2, title:"Eternos (flashbacks)", type:"filme", year:"Milhares de anos atrás", icon:"✨", stream:"Disney+", canon:true, note:"Inclui cenas ambientadas em diversas épocas da humanidade"},
+      {id:1, title:"Olhos de Wakanda", type:"animacao", year:"1260 a.C.–1896 d.C.", icon:"🐾", stream:"Disney+", canon:true, note:"1º cronologicamente — 4 episódios em épocas distintas", sinopse:"Série animada antológica que acompanha guerreiros Dora Milaje ao longo de séculos, revelando como o vibranium moldou Wakanda — e o mundo — muito antes de T'Challa."},
     ]
   },
   {
     id:"ww2", label:"ANOS 1930–1940", title:"A Segunda Guerra Mundial",
     desc:"Os primeiros super-heróis surgem durante o conflito mundial.",
     items:[
-      {id:3, title:"Spider-Noir", type:"serie", year:"1932", icon:"🕷️", stream:"Prime Video", canon:false, note:"Universo próprio — não é MCU canônico"},
-      {id:4, title:"Capitão América: O Primeiro Vingador", type:"filme", year:"1942–1945", icon:"🛡️", stream:"Disney+", canon:true},
-      {id:5, title:"Agent Carter", type:"serie", year:"1946–1947", icon:"💼", stream:"Disney+", canon:true, note:"Spin-off do Cap. América — 2 temporadas"},
+      {id:2, title:"Capitão América: O Primeiro Vingador", type:"filme", year:"1942–1945", icon:"🛡️", stream:"Disney+", canon:true, sinopse:"Steve Rogers, um jovem franzino de Brooklyn, torna-se o Capitão América após um experimento científico e enfrenta a HYDRA de Johann Schmidt, o Caveira Vermelha, durante a Segunda Guerra Mundial."},
+      {id:3, title:"Agent Carter", type:"serie", year:"1946", icon:"💼", stream:"Disney+", canon:true, note:"2 temporadas (1946–1947) — spin-off do Capitão América", sinopse:"Peggy Carter, agente do SSR num mundo dominado por homens, equilibra missões secretas com sua vida pessoal após a 'morte' de Steve Rogers, combatendo ameaças que a S.H.I.E.L.D. ainda nem imagina."},
+      {id:4, title:"One-Shot: Agent Carter", type:"short", year:"1946", icon:"📎", stream:"Disney+", canon:true, note:"Curta pré-série; Peggy em missão solo", sinopse:"Peggy Carter prova seu valor em uma missão solo para recuperar o Éter de Nitramina enquanto seus colegas do SSR a subestimam. Curta canônico que antecede a série."},
     ]
   },
   {
     id:"60s", label:"ANOS 1960", title:"Era Retro-Futurista",
     desc:"",
     items:[
-      {id:6, title:"Quarteto Fantástico: Primeiros Passos", type:"filme", year:"~1963", icon:"🔥", stream:"Disney+", canon:true, note:"Ambientado em universo retro-futurista anos 60 (Terra-828)"},
+      {id:5, title:"Quarteto Fantástico: Primeiros Passos", type:"filme", year:"~1963", icon:"🔥", stream:"Disney+", canon:true, note:"Ambientado em universo retro-futurista anos 60 (Terra-828)", sinopse:"Reed Richards, Sue Storm, Johnny Storm e Ben Grimm — o Quarteto Fantástico — enfrentam o devorador de mundos Galactus em um universo retrofuturista inspirado na estética dos anos 1960, bem diferente do MCU-principal."},
     ]
   },
   {
     id:"90s", label:"ANOS 1990", title:"Operações Secretas",
     desc:"",
     items:[
-      {id:7, title:"Capitã Marvel", type:"filme", year:"1995", icon:"⭐", stream:"Disney+", canon:true},
+      {id:6, title:"Capitã Marvel", type:"filme", year:"1995", icon:"⭐", stream:"Disney+", canon:true, sinopse:"Carol Danvers, uma Kree chamada Vers, chega à Terra perseguindo os Skrulls e descobre que sua memória foi apagada. Com Nick Fury, ela reconstrói seu passado e desperta poderes de nível cósmico."},
     ]
   },
   {
-    id:"2000s", label:"ANOS 2000", title:"Antes dos Vingadores",
+    id:"2000s", label:"2008–2015", title:"Antes dos Vingadores",
     desc:"Heróis individuais surgem antes de qualquer equipe formal.",
     items:[
-      {id:8, title:"Homem de Ferro", type:"filme", year:"2008", icon:"🔴", stream:"Disney+", canon:true},
-      {id:9, title:"Hulk Incrível", type:"filme", year:"2008", icon:"💚", stream:"Disney+", canon:true},
-      {id:10, title:"Homem de Ferro 2", type:"filme", year:"2010", icon:"🔴", stream:"Disney+", canon:true},
-      {id:11, title:"Thor", type:"filme", year:"2011", icon:"⚡", stream:"Disney+", canon:true},
-      {id:12, title:"Os Vingadores", type:"filme", year:"2012", icon:"🅐", stream:"Disney+", canon:true},
-      {id:13, title:"Homem de Ferro 3", type:"filme", year:"2013", icon:"🔴", stream:"Disney+", canon:true},
-      {id:14, title:"Thor: O Mundo Sombrio", type:"filme", year:"2013", icon:"⚡", stream:"Disney+", canon:true},
-      {id:15, title:"Capitão América: O Soldado Invernal", type:"filme", year:"2014", icon:"🛡️", stream:"Disney+", canon:true},
-      {id:16, title:"Guardiões da Galáxia", type:"filme", year:"2014", icon:"🚀", stream:"Disney+", canon:true},
-      {id:17, title:"Guardiões da Galáxia Vol. 2", type:"filme", year:"2014", icon:"🚀", stream:"Disney+", canon:true, note:"Poucos meses após GdG 1"},
-      {id:18, title:"Daredevil", type:"serie", year:"2015", icon:"😈", stream:"Disney+", canon:true, note:"Série Netflix — integrada ao MCU canônico"},
-      {id:19, title:"Jessica Jones", type:"serie", year:"2015", icon:"🥊", stream:"Disney+", canon:true, note:"Série Netflix"},
-      {id:20, title:"Vingadores: Era de Ultron", type:"filme", year:"2015", icon:"🅐", stream:"Disney+", canon:true},
-      {id:21, title:"Luke Cage", type:"serie", year:"2016", icon:"💪", stream:"Disney+", canon:true, note:"Série Netflix"},
-      {id:22, title:"Demolidor T2 + Justiceiro T1", type:"serie", year:"2016", icon:"😈", stream:"Disney+", canon:true, note:"Entrelaçadas cronologicamente"},
-      {id:23, title:"Iron Fist", type:"serie", year:"2016", icon:"☯️", stream:"Disney+", canon:true, note:"Série Netflix"},
-      {id:24, title:"Os Defensores", type:"serie", year:"2016", icon:"🦸", stream:"Disney+", canon:true, note:"Crossover Netflix"},
-      {id:25, title:"Homem-Formiga", type:"filme", year:"2015", icon:"🐜", stream:"Disney+", canon:true},
+      {id:7, title:"Homem de Ferro", type:"filme", year:"2008", icon:"🔴", stream:"Disney+", canon:true, sinopse:"Tony Stark, gênio bilionário e traficante de armas, é capturado por terroristas e constrói uma armadura para escapar. De volta aos EUA, aperfeiçoa a armadura e torna-se o Homem de Ferro, dando início ao MCU."},
+      {id:8, title:"Hulk Incrível", type:"filme", year:"2008", icon:"💚", stream:"Disney+", canon:true, sinopse:"Bruce Banner vive foragido, tentando controlar o Hulk enquanto o General Ross o persegue. Quando o vilão Abominação ameaça Nova York, Banner precisa invocar o monstro que tanto teme para salvar a cidade."},
+      {id:9, title:"One-Shot: The Consultant", type:"short", year:"2008", icon:"📎", stream:"Disney+", canon:true, note:"Pós-Hulk Incrível; Coulson e Sitwell discutem Blonsky", sinopse:"Phil Coulson e Jasper Sitwell recebem ordens da S.H.I.E.L.D. para impedir que o Exército libere o Abominação. A solução: enviar Tony Stark — o 'consultor' — para sabotar a reunião com o General Ross."},
+      {id:10, title:"Homem de Ferro 2", type:"filme", year:"2010", icon:"🔴", stream:"Disney+", canon:true, sinopse:"Tony Stark enfrenta o russo Ivan Vanko, movido por vingança, e o rival industrial Justin Hammer. Enquanto isso, o paládio do reator arc está o envenenando lentamente e a S.H.I.E.L.D. monitora tudo de perto."},
+      {id:11, title:"One-Shot: A Funny Thing Happened on the Way to Thor's Hammer", type:"short", year:"2010", icon:"📎", stream:"Disney+", canon:true, note:"Coulson numa loja de conveniência a caminho de Puente Antiguo", sinopse:"Phil Coulson para em um posto de gasolina enquanto vai ao Novo México investigar o martelo de Thor — e quase por acidente frustra um assalto com eficiência desconcertante. Revela a destreza de combate de Coulson."},
+      {id:12, title:"Thor", type:"filme", year:"2011", icon:"⚡", stream:"Disney+", canon:true, sinopse:"O arrogante Thor é banido de Asgard por seu pai Odin e enviado à Terra sem seus poderes. Enquanto aprende humildade em Novo México, seu irmão Loki trama para tomar o trono de Asgard."},
+      {id:13, title:"Os Vingadores", type:"filme", year:"2012", icon:"🅐", stream:"Disney+", canon:true, sinopse:"Nick Fury reúne Homem de Ferro, Capitão América, Thor, Hulk, Viúva Negra e Gavião Arqueiro para enfrentar Loki e seu exército alienígena Chitauri, que ameaça conquistar a Terra pelo Tesseract."},
+      {id:14, title:"One-Shot: Item 47", type:"short", year:"2012", icon:"📎", stream:"Disney+", canon:true, note:"Pós-Vingadores; casal usa arma chitauri — germinou Agents of S.H.I.E.L.D.", sinopse:"Um casal desesperado encontra uma arma chitauri abandonada após a batalha de Nova York e começa a usá-la em assaltos a bancos. Dois agentes da S.H.I.E.L.D. são enviados para recuperar o 'item 47'."},
+      {id:15, title:"Homem de Ferro 3", type:"filme", year:"2013", icon:"🔴", stream:"Disney+", canon:true, sinopse:"Atormentado pelo Snap e pela ameaça do misterioso Mandarim, Tony Stark vê sua mansão destruída e é forçado a operar sem sua armadura — descobrindo que o herói mora dentro do homem, não do traje."},
+      {id:16, title:"One-Shot: All Hail the King", type:"short", year:"2013", icon:"📎", stream:"Disney+", canon:true, note:"Trevor Slattery na prisão; confirma a existência do Mandarim real", sinopse:"Trevor Slattery, o ator que interpretou o 'Mandarim', está na prisão e é abordado por um documentarista. A revelação: o verdadeiro Mandarim existe — e não está satisfeito com a usurpação do seu nome."},
+      {id:17, title:"Thor: O Mundo Sombrio", type:"filme", year:"2013", icon:"⚡", stream:"Disney+", canon:true, sinopse:"Malekith, o Élfego Sombrio, busca o Éter para mergulhar o universo na escuridão durante o Convergência. Thor precisa da ajuda improvável de Loki para salvar Jane Foster e os Nove Reinos."},
+      {id:18, title:"Capitão América: O Soldado Invernal", type:"filme", year:"2014", icon:"🛡️", stream:"Disney+", canon:true, sinopse:"Steve Rogers descobre que a S.H.I.E.L.D. foi infiltrada pela HYDRA desde seu início. Perseguido pelo misterioso Soldado Invernal — seu velho amigo Bucky Barnes —, o Capitão derruba a organização por dentro."},
+      {id:19, title:"Guardiões da Galáxia", type:"filme", year:"2014", icon:"🚀", stream:"Disney+", canon:true, sinopse:"Peter Quill, Gamora, Drax, Rocket e Groot — um grupo improvável de desajustados — se unem para impedir que o fanático Ronan entregue uma Joia do Infinito a Thanos e destrua um planeta inteiro."},
+      {id:20, title:"Guardiões da Galáxia Vol. 2", type:"filme", year:"2014", icon:"🚀", stream:"Disney+", canon:true, note:"Poucos meses após GdG 1", sinopse:"Peter Quill descobre que seu pai é Ego, uma entidade viva de escala planetária. Ao mesmo tempo, os Guardiões enfrentam ameaças internas e externas enquanto debatem o que significa ser uma família de verdade."},
+      {id:21, title:"Homem-Formiga", type:"filme", year:"2015", icon:"🐜", stream:"Disney+", canon:true, sinopse:"Scott Lang, ladrão recém-saído da prisão, é recrutado pelo cientista Hank Pym para usar o traje do Homem-Formiga. A missão: roubar o projeto do Vespa Amarela antes que caia em mãos erradas."},
+      {id:22, title:"Daredevil", type:"serie", year:"2015", icon:"😈", stream:"Disney+", canon:true, note:"3 temporadas (2015–2018) — série Netflix integrada ao MCU canônico", sinopse:"Matt Murdock, advogado cego de dia, usa seus sentidos sobre-humanos à noite como Demolidor para limpar Hell's Kitchen. Enfrenta Wilson Fisk, o Rei do Crime, e depois o esquivo Bullseye — com Elektra e o Justiceiro ao longo do caminho."},
+      {id:23, title:"Jessica Jones", type:"serie", year:"2015", icon:"🥊", stream:"Disney+", canon:true, note:"3 temporadas (2015–2019) — série Netflix", sinopse:"Jessica Jones, detetive particular com superforça e um passado traumático, enfrenta Kilgrave — um homem com poder de controle mental que destruiu sua vida. Uma história sombria de sobrevivência, trauma e redenção."},
+      {id:24, title:"Vingadores: Era de Ultron", type:"filme", year:"2015", icon:"🅐", stream:"Disney+", canon:true, sinopse:"Tony Stark cria a IA Ultron para defender a paz, mas ela conclui que a humanidade é a ameaça. Os Vingadores enfrentam a criação de Stark em Sokovia, enquanto surgem novos aliados: Feiticeira Escarlate, Mercúrio e Visão."},
     ]
   },
   {
-    id:"2016", label:"2016", title:"A Guerra Civil",
-    desc:"Divisão dos Vingadores e surgimento de novos heróis.",
+    id:"2016-2018", label:"2016–2018", title:"A Guerra Civil & Novos Heróis",
+    desc:"Divisão dos Vingadores, ascensão de novos heróis e a marcha rumo à ameaça cósmica.",
     items:[
-      {id:26, title:"Capitão América: Guerra Civil", type:"filme", year:"2016", icon:"🛡️", stream:"Disney+", canon:true},
-      {id:27, title:"Viúva Negra", type:"filme", year:"2016", icon:"🕷️", stream:"Disney+", canon:true, note:"Logo após Guerra Civil"},
-      {id:28, title:"O Justiceiro T2 + Jessica Jones T2", type:"serie", year:"2017", icon:"💀", stream:"Disney+", canon:true, note:"Séries Netflix pós-Defensores"},
-      {id:29, title:"Doutor Estranho", type:"filme", year:"2016", icon:"🌀", stream:"Disney+", canon:true},
-      {id:30, title:"Pantera Negra", type:"filme", year:"2016", icon:"🐾", stream:"Disney+", canon:true},
-      {id:31, title:"Homem-Aranha: De Volta ao Lar", type:"filme", year:"2016", icon:"🕷️", stream:"Disney+", canon:true},
-      {id:32, title:"Jessica Jones T3 / Demolidor T3", type:"serie", year:"2017–2018", icon:"🥊", stream:"Disney+", canon:true, note:"Séries Netflix finais"},
-      {id:33, title:"Thor: Ragnarok", type:"filme", year:"2017", icon:"⚡", stream:"Disney+", canon:true},
-      {id:34, title:"Vingadores: Guerra Infinita", type:"filme", year:"2018", icon:"🅐", stream:"Disney+", canon:true},
-      {id:35, title:"Homem-Formiga e a Vespa", type:"filme", year:"2018", icon:"🐜", stream:"Disney+", canon:true, note:"Pós-cena pós-crédito simultânea a Guerra Infinita"},
+      {id:25, title:"Luke Cage", type:"serie", year:"2016", icon:"💪", stream:"Disney+", canon:true, note:"2 temporadas (2016–2018) — série Netflix", sinopse:"Luke Cage, ex-presidiário com pele impenetrável e superforça, tenta viver em paz no Harlem — mas é arrastado para o crime organizado local. Uma ode ao soul e à resiliência negra embrulhada num gibi de super-herói."},
+      {id:26, title:"Iron Fist", type:"serie", year:"2016", icon:"☯️", stream:"Disney+", canon:true, note:"2 temporadas (2016–2017) — série Netflix", sinopse:"Danny Rand retorna a Nova York após 15 anos na cidade mística de K'un-Lun, com o poder do Punho de Ferro. Ele tenta recuperar sua empresa e confronta a A Mão, uma organização ninja criminosa com raízes antigas."},
+      {id:27, title:"Os Defensores", type:"serie", year:"2016", icon:"🦸", stream:"Disney+", canon:true, note:"Crossover Netflix — 1 temporada", sinopse:"Demolidor, Jessica Jones, Luke Cage e Punho de Ferro se unem contrariados para enfrentar A Mão e sua líder Alexandra. Um crossover tenso que une os heróis de rua de Nova York em uma ameaça existencial subterrânea."},
+      {id:28, title:"O Justiceiro", type:"serie", year:"2016", icon:"💀", stream:"Disney+", canon:true, note:"2 temporadas (2016–2019) — inicia dentro do arco de Demolidor T2", sinopse:"Frank Castle, ex-fuzileiro naval cujas família foi massacrada, torna-se o Justiceiro — um vigilante que aplica sua própria e brutal versão da justiça. Mergulha em uma conspiração que vai muito além de um crime comum."},
+      {id:29, title:"Capitão América: Guerra Civil", type:"filme", year:"2016", icon:"🛡️", stream:"Disney+", canon:true, sinopse:"Após danos colaterais em missões, os governos exigem supervisão dos Vingadores. Steve Rogers e Tony Stark se dividem — e quando Bucky Barnes é acusado de terrorismo, a divisão vira guerra entre heróis."},
+      {id:30, title:"Viúva Negra", type:"filme", year:"2016", icon:"🕷️", stream:"Disney+", canon:true, note:"Logo após Guerra Civil", sinopse:"Natasha Romanoff enfrenta seu passado sombrio como Viúva Negra. Perseguida por Dreykov e o programa Sala Vermelha, ela se alia à 'irmã' Yelena para desmantelar o sistema que as criou como armas."},
+      {id:31, title:"Doutor Estranho", type:"filme", year:"2016", icon:"🌀", stream:"Disney+", canon:true, sinopse:"O brilhante e arrogante neurocirurgião Stephen Strange sofre um acidente que destrói suas mãos. Desesperado, busca cura em Kamar-Taj e acaba se tornando um mestre das artes místicas — o Doutor Estranho."},
+      {id:32, title:"Pantera Negra", type:"filme", year:"2016", icon:"🐾", stream:"Disney+", canon:true, sinopse:"T'Challa retorna a Wakanda para assumir o trono após a morte do pai. Mas Erik Killmonger, herdeiro oculto com sede de vingança, desafia seu reinado — e força Wakanda a repensar seu isolamento do mundo."},
+      {id:33, title:"Homem-Aranha: De Volta ao Lar", type:"filme", year:"2016", icon:"🕷️", stream:"Disney+", canon:true, sinopse:"Peter Parker, ainda no colégio, tenta balancear vida de herói e adolescência em Queens. Sua ansiedade por impressionar Tony Stark o leva a enfrentar Adrian Toomes, o Abutre, que vende tecnologia alienígena no mercado negro."},
+      {id:34, title:"Thor: Ragnarok", type:"filme", year:"2017", icon:"⚡", stream:"Disney+", canon:true, sinopse:"Thor descobre que tem uma irmã — Hela, deusa da morte — que toma Asgard. Preso no planeta Sakaar, ele se une ao Hulk, Valquíria e Loki para voltar a tempo de salvar seu povo. Taika Waititi reinventa o personagem."},
+      {id:35, title:"Vingadores: Guerra Infinita", type:"filme", year:"2018", icon:"🅐", stream:"Disney+", canon:true, sinopse:"Thanos percorre o universo coletando as seis Joias do Infinito para exterminar metade de toda vida existente. Os Vingadores e os Guardiões da Galáxia correm contra o tempo — e fracassam."},
+      {id:36, title:"Homem-Formiga e a Vespa", type:"filme", year:"2018", icon:"🐜", stream:"Disney+", canon:true, note:"Pós-cena simultânea a Guerra Infinita", sinopse:"Scott Lang trabalha com Hope van Dyne e Hank Pym para resgatar Janet van Dyne do Reino Quântico. A missão ganha urgência quando Fantasma, uma mulher com poderes de faseamento, tenta sequestrar sua tecnologia."},
     ]
   },
   {
     id:"snap", label:"2018–2023", title:"O Blip — O Fim e o Retorno",
-    desc:"Cinco anos entre o Snap de Thanos (2018) e o retorno em Ultimato (2023).",
+    desc:"Cinco anos entre o Snap de Thanos e o retorno em Ultimato.",
     items:[
-      {id:36, title:"Vingadores: Ultimato", type:"filme", year:"2018–2023", icon:"🅐", stream:"Disney+", canon:true},
-      {id:37, title:"Eu Sou Groot", type:"especial", year:"2023", icon:"🌿", stream:"Disney+", canon:true, note:"Curtas com o Groot bebê"},
-      {id:38, title:"Homem-Aranha: Longe de Casa", type:"filme", year:"2023", icon:"🕷️", stream:"Disney+", canon:true, note:"Dias após Ultimato"},
+      {id:37, title:"Vingadores: Ultimato", type:"filme", year:"2023", icon:"🅐", stream:"Disney+", canon:true, note:"Linha principal em 2023, após 5 anos do Snap", sinopse:"Cinco anos após o Snap, os Vingadores sobreviventes executam uma viagem no tempo para coletar as Joias do Infinito no passado e reverter o extermínio. O sacrifício de Tony Stark sela o destino do MCU."},
+      {id:38, title:"Eu Sou Groot", type:"especial", year:"2023", icon:"🌿", stream:"Disney+", canon:true, note:"Curtas com o Groot bebê — pós-Ultimato", sinopse:"Série de curtas animados que acompanham as aventuras do Groot bebê enquanto ele explora a nave dos Guardiões e encontra criaturas exóticas — tudo com a inocência e a birra de uma criança de árvore."},
+      {id:39, title:"Homem-Aranha: Longe de Casa", type:"filme", year:"2023", icon:"🕷️", stream:"Disney+", canon:true, note:"Dias após Ultimato", sinopse:"Peter Parker tenta aproveitar uma viagem escolar pela Europa, mas Nick Fury o recruta para enfrentar os Elementais ao lado do misterioso Mysterio — que revela ser bem mais que um herói do multiverso."},
     ]
   },
   {
-    id:"multiverso", label:"2023–2024", title:"A Saga do Multiverso Começa",
+    id:"multiverso", label:"2023–2026", title:"A Saga do Multiverso",
     desc:"Pós-Blip: o mundo se reorganiza e o multiverso é desencadeado.",
     items:[
-      {id:39, title:"WandaVision", type:"serie", year:"2023", icon:"💜", stream:"Disney+", canon:true, note:"3 semanas após Ultimato"},
-      {id:40, title:"Loki", type:"serie", year:"Fora do tempo / pós-Ultimato", icon:"🐍", stream:"Disney+", canon:true, note:"2 temporadas — eventos fora da linha do tempo"},
-      {id:41, title:"Falcão e o Soldado Invernal", type:"serie", year:"2024", icon:"🦅", stream:"Disney+", canon:true, note:"6 meses após Ultimato"},
-      {id:42, title:"Shang-Chi e a Lenda dos Dez Anéis", type:"filme", year:"2024", icon:"🥊", stream:"Disney+", canon:true},
-      {id:43, title:"Eternos", type:"filme", year:"2024", icon:"✨", stream:"Disney+", canon:true},
-      {id:44, title:"Homem-Aranha: Sem Volta Para Casa", type:"filme", year:"2024", icon:"🕷️", stream:"Disney+", canon:true},
-      {id:45, title:"Gavião Arqueiro", type:"serie", year:"2024", icon:"🏹", stream:"Disney+", canon:true, note:"Natal de 2024"},
-      {id:46, title:"Cavaleiro da Lua", type:"serie", year:"2025", icon:"🌙", stream:"Disney+", canon:true},
-      {id:47, title:"Doutor Estranho no Multiverso da Loucura", type:"filme", year:"2025", icon:"🌀", stream:"Disney+", canon:true},
-      {id:48, title:"Ms. Marvel", type:"serie", year:"2025", icon:"💫", stream:"Disney+", canon:true},
-      {id:49, title:"Thor: Amor e Trovão", type:"filme", year:"2025", icon:"⚡", stream:"Disney+", canon:true},
-      {id:50, title:"Lobisomem na Noite", type:"especial", year:"2025", icon:"🐺", stream:"Disney+", canon:true},
-      {id:51, title:"Pantera Negra: Wakanda Para Sempre", type:"filme", year:"2025", icon:"🐾", stream:"Disney+", canon:true},
-      {id:52, title:"Mulher-Hulk: Defensora de Heróis", type:"serie", year:"2025", icon:"💚", stream:"Disney+", canon:true},
-      {id:53, title:"Especial de Festas dos Guardiões da Galáxia", type:"especial", year:"Dez/2025", icon:"🎄", stream:"Disney+", canon:true},
-      {id:54, title:"Echo", type:"serie", year:"2026", icon:"👂", stream:"Disney+", canon:true, note:"5 meses após Gavião Arqueiro"},
-      {id:55, title:"Homem-Formiga e a Vespa: Quantumania", type:"filme", year:"2026", icon:"🐜", stream:"Disney+", canon:true},
-      {id:56, title:"Guardiões da Galáxia Vol. 3", type:"filme", year:"2026", icon:"🚀", stream:"Disney+", canon:true},
-      {id:57, title:"Invasão Secreta", type:"serie", year:"2026", icon:"👽", stream:"Disney+", canon:true},
-      {id:58, title:"As Marvels", type:"filme", year:"2026", icon:"⭐", stream:"Disney+", canon:true},
-      {id:59, title:"Agatha All Along", type:"serie", year:"2026", icon:"🧙", stream:"Disney+", canon:true},
-      {id:60, title:"Deadpool & Wolverine", type:"filme", year:"2026", icon:"💥", stream:"Disney+", canon:true, note:"Início antes de Longe de Casa; maior parte fora do tempo"},
+      {id:40, title:"WandaVision", type:"serie", year:"2023", icon:"💜", stream:"Disney+", canon:true, note:"3 semanas após Ultimato", sinopse:"Wanda Maximoff e Visão vivem em uma série de realidades de sitcoms dos anos 50 até o presente em Westview — mas algo está errado. Uma investigação da S.W.O.R.D. revela que Wanda prendeu uma cidade inteira em um feitiço de luto."},
+      {id:41, title:"Loki", type:"serie", year:"Fora do tempo", icon:"🐍", stream:"Disney+", canon:true, note:"2 temporadas — eventos fora da linha do tempo sagrada", sinopse:"O Loki de 2012 é capturado pela Autoridade de Variância Temporal e recrutado para capturar uma variante de si mesmo. A jornada revela a verdade sombria sobre quem controla o destino de toda realidade."},
+      {id:42, title:"Falcão e o Soldado Invernal", type:"serie", year:"2024", icon:"🦅", stream:"Disney+", canon:true, note:"6 meses após Ultimato", sinopse:"Sam Wilson e Bucky Barnes enfrentam os Flag Smashers enquanto Sam debate assumir o legado do escudo do Capitão América. John Walker é nomeado o novo Cap pelo governo — com consequências desastrosas."},
+      {id:43, title:"Shang-Chi e a Lenda dos Dez Anéis", type:"filme", year:"2024", icon:"🥊", stream:"Disney+", canon:true, sinopse:"Shang-Chi, que tenta viver uma vida normal em São Francisco, é forçado a confrontar seu pai Xu Wenwu — o verdadeiro Mandarim, imortal e poderoso — e sua herança ligada aos Dez Anéis e ao mundo místico de Ta Lo."},
+      {id:44, title:"Eternos", type:"filme", year:"2024", icon:"✨", stream:"Disney+", canon:true, note:"História principal em 2024; flashbacks cobrem milênios da pré-história", sinopse:"Os Eternos, seres imortais enviados pela entidade Arishem para proteger a Terra dos Deviantes, descobrem que sua missão real é muito mais sombria — e devem decidir se seguem ordens ou salvam a humanidade que amam."},
+      {id:45, title:"Homem-Aranha: Sem Volta Para Casa", type:"filme", year:"2024", icon:"🕷️", stream:"Disney+", canon:true, sinopse:"Após sua identidade ser revelada, Peter Parker pede ao Doutor Estranho um feitiço de esquecimento — que sai errado e abre o multiverso. Vilões de outras realidades invadem o MCU, e três Aranhas precisam se unir."},
+      {id:46, title:"Gavião Arqueiro", type:"serie", year:"2024", icon:"🏹", stream:"Disney+", canon:true, note:"Natal de 2024", sinopse:"Clint Barton tenta passar o Natal com a família em Nova York, mas se envolve com Kate Bishop — uma jovem arqueira que roubou o traje de Ronin. Juntos, enfrentam a máfia da tracksuit e revelações sobre o passado de Clint."},
+      {id:47, title:"Cavaleiro da Lua", type:"serie", year:"2025", icon:"🌙", stream:"Disney+", canon:true, sinopse:"Marc Spector e seu alter ego Steven Grant descobrem que compartilham um corpo e são o avatar do deus egípcio Khonshu. Uma jornada surreal pelo trauma, identidade e mitologia egípcia — com o vilão Arthur Harrow."},
+      {id:48, title:"Doutor Estranho no Multiverso da Loucura", type:"filme", year:"2025", icon:"🌀", stream:"Disney+", canon:true, sinopse:"Strange e a jovem América Chavez fogem pela tortuosa teia do multiverso perseguidos pela Feiticeira Escarlate, que busca um universo onde seus filhos ainda existem — a qualquer custo."},
+      {id:49, title:"Ms. Marvel", type:"serie", year:"2025", icon:"💫", stream:"Disney+", canon:true, sinopse:"Kamala Khan, fã número um da Capitã Marvel em Jersey City, descobre que tem poderes de cristalização ligados a uma pulseira antiga e à sua herança paquistanesa. A origem de uma das heroínas mais amadas da nova geração."},
+      {id:50, title:"Thor: Amor e Trovão", type:"filme", year:"2025", icon:"⚡", stream:"Disney+", canon:true, sinopse:"Thor enfrenta Gorr, o Carniceiro de Deuses, enquanto Jane Foster — agora terminal — empunha o Mjolnir e torna-se A Poderosa Thor. Uma história sobre amor, perda e o preço da fé."},
+      {id:51, title:"Lobisomem na Noite", type:"especial", year:"2025", icon:"🐺", stream:"Disney+", canon:true, sinopse:"Especial de Halloween em preto e branco onde caçadores de monstros se reúnem para disputar uma pedra sagrada — e um deles tem um segredo: é Jack Russell, o Lobisomem. Apresenta Man-Thing ao MCU."},
+      {id:52, title:"Pantera Negra: Wakanda Para Sempre", type:"filme", year:"2025", icon:"🐾", stream:"Disney+", canon:true, sinopse:"Wakanda chora a morte de T'Challa e enfrenta Namor, rei de Talokan, uma civilização subaquática de origem mesoamericana. Shuri assume o manto da Pantera Negra em uma história de luto, raiva e reconciliação."},
+      {id:53, title:"Mulher-Hulk: Defensora de Heróis", type:"serie", year:"2025", icon:"💚", stream:"Disney+", canon:true, sinopse:"Jennifer Walters, advogada e prima de Bruce Banner, torna-se a Mulher-Hulk após uma transfusão de sangue. Ela tenta manter sua carreira jurídica enquanto navega a fama, o machismo e a metaficção — a série quebra a quarta parede."},
+      {id:54, title:"Especial de Festas dos Guardiões da Galáxia", type:"especial", year:"Dez/2025", icon:"🎄", stream:"Disney+", canon:true, sinopse:"Peter Quill está melancólico no Natal sem Gamora. Drax e Mantis viajam à Terra para lhe dar o melhor presente possível: seu ídolo de infância, Kevin Bacon. Especial natalino hilário com coração de ouro."},
+      {id:55, title:"Echo", type:"serie", year:"2026", icon:"👂", stream:"Disney+", canon:true, note:"5 meses após Gavião Arqueiro", sinopse:"Maya Lopez, surda e com uma prótese na perna, retorna à sua cidade natal em Oklahoma após eventos de Gavião Arqueiro. Enfrenta Wilson Fisk e suas raízes indígenas Choctaw enquanto busca redenção e identidade."},
+      {id:56, title:"Homem-Formiga e a Vespa: Quantumania", type:"filme", year:"2026", icon:"🐜", stream:"Disney+", canon:true, sinopse:"Scott Lang, Hope, Hank, Janet e Cassie são sugados para o Reino Quântico, onde encontram Kang, o Conquistador — uma ameaça multiversal muito maior que Thanos. A Fase 5 começa com uma virada sombria."},
+      {id:57, title:"Guardiões da Galáxia Vol. 3", type:"filme", year:"2026", icon:"🚀", stream:"Disney+", canon:true, sinopse:"O passado traumático de Rocket é revelado — ele foi criado pelo sádico Alto Evolucionário. Os Guardiões embarcam em uma missão para salvar seu amigo e encerram seu capítulo juntos de forma emotiva e definitiva."},
+      {id:58, title:"Invasão Secreta", type:"serie", year:"2026", icon:"👽", stream:"Disney+", canon:true, sinopse:"Nick Fury retorna à Terra para enfrentar uma invasão silenciosa: Skrulls dissidentes liderados por Gravik infiltraram os maiores governos do mundo. Uma espionagem paranoica onde não se pode confiar em ninguém."},
+      {id:59, title:"As Marvels", type:"filme", year:"2026", icon:"⭐", stream:"Disney+", canon:true, sinopse:"Carol Danvers, Kamala Khan e Monica Rambeau têm seus poderes entrelaçados e trocam de lugar no espaço cada vez que os usam. Precisam aprender a trabalhar em sincronia para deter uma inimiga kree com uma missão de destruição."},
+      {id:60, title:"Agatha All Along", type:"serie", year:"2026", icon:"🧙", stream:"Disney+", canon:true, sinopse:"Agatha Harkness, presa em uma identidade falsa por Wanda, busca recuperar seus poderes percorrendo a Trilha das Bruxas — um caminho mágico e mortal — com um coven de feiticeiras improváveis, incluindo um misterioso adolescente."},
+      {id:61, title:"Deadpool & Wolverine", type:"filme", year:"2026", icon:"💥", stream:"Disney+", canon:true, note:"Início antes de Longe de Casa; maior parte fora do tempo", sinopse:"Wade Wilson é recrutado pela TVA para salvar uma linha do tempo — ao lado de um Logan fracassado e amargo. A dupla improvável percorre o Vazio, encontra variantes icônicas e esmaga a quarta parede com irreverência total."},
     ]
   },
   {
-    id:"fase5b", label:"2026–2027", title:"Novo Mundo, Novos Heróis",
+    id:"fase5b", label:"2026–2028", title:"Novo Mundo, Novos Heróis",
     desc:"A formação da nova geração de heróis após o legado dos Vingadores originais.",
     items:[
-      {id:61, title:"Capitão América: Admirável Mundo Novo", type:"filme", year:"2026–2027", icon:"🛡️", stream:"Disney+", canon:true},
-      {id:62, title:"Daredevil: Renascido", type:"serie", year:"2027", icon:"😈", stream:"Disney+", canon:true, note:"Reboot MCU canônico — 2 temporadas"},
-      {id:63, title:"Thunderbolts*", type:"filme", year:"2027", icon:"⚡", stream:"Disney+", canon:true},
-      {id:64, title:"Ironheart", type:"serie", year:"2027", icon:"🔴", stream:"Disney+", canon:true},
-      {id:65, title:"Wonder Man", type:"serie", year:"2027–2028", icon:"🌟", stream:"Disney+", canon:true},
-      {id:66, title:"O Justiceiro: Um Último Combate", type:"especial", year:"2027", icon:"💀", stream:"Disney+", canon:true},
-      {id:67, title:"Homem-Aranha: Brand New Day", type:"filme", year:"2027", icon:"🕷️", stream:"Cinemas", canon:true},
-      {id:68, title:"VisionQuest", type:"serie", year:"2027", icon:"🤖", stream:"Disney+", canon:true, note:"Terceiro capítulo da trilogia WandaVision"},
-      {id:69, title:"Vingadores: Dia do Juízo Final", type:"filme", year:"2027", icon:"🅐", stream:"Cinemas", canon:true},
-      {id:70, title:"Vingadores: Guerras Secretas", type:"filme", year:"2028", icon:"🅐", stream:"Em breve", canon:true},
+      {id:62, title:"Capitão América: Admirável Mundo Novo", type:"filme", year:"2026–2027", icon:"🛡️", stream:"Disney+", canon:true, sinopse:"Sam Wilson, agora oficialmente o novo Capitão América, envolve-se em um conflito internacional ligado ao presidente Thaddeus Ross — e ao surgimento de um novo e aterrorizante Hulk Vermelho."},
+      {id:63, title:"Daredevil: Renascido", type:"serie", year:"2027", icon:"😈", stream:"Disney+", canon:true, note:"Reboot MCU canônico — 2 temporadas", sinopse:"Matt Murdock tenta reconstruir sua vida em Nova York, mas é arrastado de volta para as sombras quando Wilson Fisk — agora prefeito — tece uma nova teia de poder. O Demolidor mais sombrio e violento já visto no MCU."},
+      {id:64, title:"Thunderbolts*", type:"filme", year:"2027", icon:"⚡", stream:"Disney+", canon:true, sinopse:"Um grupo de anti-heróis e ex-vilões — Yelena Belova, Bucky Barnes, Fantasma, Sentinela, Escalpo-Vermelho e Esmagador — é reunido pela CIA numa missão suicida. O asterisco no nome esconde um segredo maior."},
+      {id:65, title:"Ironheart", type:"serie", year:"2027", icon:"🔴", stream:"Disney+", canon:true, sinopse:"Riri Williams, uma jovem prodígio do MIT, constrói sua própria armadura inspirada em Tony Stark e enfrenta o Parker Robbins, o Capuz — um criminoso com uma relíquia mágica. Magia e tecnologia colidem."},
+      {id:66, title:"Wonder Man", type:"serie", year:"2027", icon:"🌟", stream:"Disney+", canon:true, sinopse:"Simon Williams, ator de Hollywood com poderes de energia iônica, tenta ressurgir na indústria do entretenimento enquanto lida com seu passado como supervilão. Uma comédia de situação com muita ação nos bastidores."},
+      {id:67, title:"O Justiceiro: Um Último Combate", type:"especial", year:"2027", icon:"💀", stream:"Disney+", canon:true, sinopse:"Frank Castle enfrenta sua batalha mais pessoal e definitiva. Um especial que fecha o capítulo do Justiceiro no MCU com a brutalidade e a gravidade que o personagem exige."},
+      {id:68, title:"Homem-Aranha: Brand New Day", type:"filme", year:"2027", icon:"🕷️", stream:"Cinemas", canon:true, sinopse:"Peter Parker recomeça do zero — identidade apagada, sem Stark, sem Avengers. Um novo dia, novas ameaças e uma versão mais madura e solitária do Amigão da Vizinhança tentando encontrar seu lugar no MCU pós-Ultimato."},
+      {id:69, title:"VisionQuest", type:"serie", year:"2027", icon:"🤖", stream:"Disney+", canon:true, note:"Terceiro capítulo da trilogia WandaVision", sinopse:"O novo Visão — reconstruído sem memórias — percorre o mundo em busca de respostas sobre quem ele é. Uma meditação filosófica sobre identidade, consciência e o peso de ser uma criação sem passado."},
+      {id:70, title:"Vingadores: Dia do Juízo Final", type:"filme", year:"2027", icon:"🅐", stream:"Cinemas", canon:true, sinopse:"Os Vingadores da nova geração enfrentam a maior ameaça já vista — a convergência do multiverso. O clímax da Saga do Multiverso que reúne heróis velhos e novos em uma batalha que redefinirá o MCU."},
+      {id:71, title:"Vingadores: Guerras Secretas", type:"filme", year:"2028", icon:"🅐", stream:"Em breve", canon:true, sinopse:"A conclusão definitiva da Saga do Multiverso. Realidades colidem, heróis de universos paralelos se encontram e o tecido da existência é posto à prova em uma épica batalha que encerrará uma era do MCU."},
     ]
   },
   {
     id:"what-if", label:"MULTIVERSO / ALTERNATIVOS", title:"Universos Alternativos (MCU)",
-    desc:"Séries animadas canônicas ao MCU mas ambientadas em linhas do tempo alternativas à principal.",
+    desc:"Séries animadas ambientadas em linhas do tempo alternativas à principal.",
     items:[
-      {id:71, title:"What If...?", type:"animacao", year:"Multilinhas", icon:"🎨", stream:"Disney+", canon:true, note:"3 temporadas — ramificações alternativas do MCU"},
-      {id:72, title:"X-Men '97", type:"animacao", year:"1997 (universo X-Men)", icon:"❌", stream:"Disney+", canon:false, note:"Continuação da série animada dos anos 90 — universo próprio"},
-      {id:73, title:"Zumbis Marvel", type:"animacao", year:"Universo alternativo", icon:"🧟", stream:"Disney+", canon:false, note:"Spin-off de What If...? — universo zumbi alternativo"},
-      {id:74, title:"Your Friendly Neighborhood Spider-Man", type:"animacao", year:"~2016 MCU alternativo", icon:"🕷️", stream:"Disney+", canon:true, note:"Origem alternativa do Homem-Aranha no MCU"},
-    ]
-  },
-  {
-    id:"sony", label:"UNIVERSO SONY / ARANHAVERSO", title:"Filmes Sony — Fora do MCU Canônico",
-    desc:"Filmes da Sony com personagens Marvel que existem em universos paralelos ao MCU. Conectam-se ao MCU via multiverso mas não fazem parte da linha do tempo sagrada.",
-    items:[
-      {id:75, title:"Spider-Man (Tobey Maguire)", type:"filme", year:"2002", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo Raimi — Terra-96283"},
-      {id:76, title:"Spider-Man 2", type:"filme", year:"2004", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo Raimi"},
-      {id:77, title:"Spider-Man 3", type:"filme", year:"2007", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo Raimi"},
-      {id:78, title:"O Espetacular Homem-Aranha (Andrew Garfield)", type:"filme", year:"2012", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo ASM — Terra-120703"},
-      {id:79, title:"O Espetacular Homem-Aranha 2", type:"filme", year:"2014", icon:"🕷️", stream:"Disney+", canon:false, note:"Universo ASM"},
-      {id:80, title:"Homem-Aranha no Aranhaverso", type:"animacao", year:"2018", icon:"🕷️", stream:"Netflix", canon:false, note:"Universo animado Sony — Miles Morales"},
-      {id:81, title:"Venom", type:"filme", year:"2018", icon:"🖤", stream:"Disney+", canon:false, note:"SSU Sony — Terra-688"},
-      {id:82, title:"Venom: Tempo de Carnificina", type:"filme", year:"2021", icon:"🖤", stream:"Disney+", canon:false, note:"SSU Sony — pós-crédito conecta ao MCU"},
-      {id:83, title:"Morbius", type:"filme", year:"2022", icon:"🦇", stream:"Disney+", canon:false, note:"SSU Sony"},
-      {id:84, title:"Homem-Aranha: Através do Aranhaverso", type:"animacao", year:"2023", icon:"🕷️", stream:"Netflix", canon:false, note:"Referencia o MCU (Terra-199999)"},
-      {id:85, title:"Venom: A Última Rodada", type:"filme", year:"2024", icon:"🖤", stream:"Disney+", canon:false, note:"SSU Sony"},
-      {id:86, title:"Homem-Aranha: Além do Aranhaverso", type:"animacao", year:"2027", icon:"🕷️", stream:"Cinemas", canon:false, note:"Em produção — conclusão da trilogia animada"},
+      {id:72, title:"What If...?", type:"animacao", year:"Multilinhas", icon:"🎨", stream:"Disney+", canon:true, note:"3 temporadas — ramificações alternativas do MCU", sinopse:"O Vigilante explora ramificações da linha do tempo do MCU: e se Peggy Carter tivesse tomado o soro? E se T'Challa fosse o Senhor das Estrelas? Cada episódio reconstrói um momento-chave com um desfecho radicalmente diferente."},
+      {id:73, title:"X-Men '97", type:"animacao", year:"1997 (universo X-Men)", icon:"❌", stream:"Disney+", canon:false, note:"Continuação da série animada dos anos 90 — universo próprio", sinopse:"Continuação direta da série animada clássica de 1992. Os X-Men, agora sem o Professor Xavier, tentam manter sua equipe e o sonho de coexistência entre humanos e mutantes num mundo cada vez mais hostil."},
+      {id:74, title:"Zumbis Marvel", type:"animacao", year:"Universo alternativo", icon:"🧟", stream:"Disney+", canon:false, note:"Spin-off de What If...? — universo zumbi alternativo", sinopse:"Em um universo alternativo onde os heróis foram infectados por um vírus zumbi trazido pelo Reino Quântico, um grupo de sobreviventes tenta encontrar uma cura enquanto enfrenta versões monstruosas de seus ídolos."},
+      {id:75, title:"Your Friendly Neighborhood Spider-Man", type:"animacao", year:"~2016 MCU alternativo", icon:"🕷️", stream:"Disney+", canon:true, note:"Origem alternativa do Homem-Aranha no MCU", sinopse:"Uma origem alternativa e animada do Homem-Aranha no MCU, onde Peter Parker é mentorado por Norman Osborn ao invés de Tony Stark — com um tom mais leve e inspirado nas HQs clássicas do personagem."},
     ]
   }
 ];
 
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let watched = [];
-try { watched = JSON.parse(localStorage.getItem('marvel-v3') || '[]'); } catch(e){}
-let filt = 'all';
+let watched=[];
+try{watched=JSON.parse(localStorage.getItem('marvel-v4')||'[]');}catch(e){}
+let filt='all',searchQ='',expanded=new Set();
 
-const save = () => { try { localStorage.setItem('marvel-v3', JSON.stringify(watched)); } catch(e){} };
+const save=()=>{try{localStorage.setItem('marvel-v4',JSON.stringify(watched));}catch(e){}};
 
-const toggle = (id) => {
-  watched = watched.includes(id) ? watched.filter(x=>x!==id) : [...watched, id];
-  save(); stats();
-  const el = document.getElementById('r'+id);
-  if (!el) return;
-  el.classList.toggle('done', watched.includes(id));
-  el.querySelector('.rcheck').textContent = watched.includes(id) ? '✓' : '';
+/* TOGGLE WATCHED — apenas o botão check */
+const toggle=(e,id)=>{
+  e.stopPropagation();
+  watched=watched.includes(id)?watched.filter(x=>x!==id):[...watched,id];
+  save();stats();
+  const el=document.getElementById('r'+id);
+  if(!el)return;
+  const done=watched.includes(id);
+  el.classList.toggle('done',done);
+  el.querySelector('.rcheck').textContent=done?'✓':'';
+  updateNextUp();updateEraBars();
 };
 
-const markAll = () => {
-  watched = [...new Set([...watched, ...eras.flatMap(e=>e.items.map(i=>i.id))])];
-  save(); render();
+/* EXPAND/COLLAPSE — clique no row (fora do check) */
+const expandRow=(id)=>{
+  const el=document.getElementById('r'+id);
+  if(!el)return;
+  if(expanded.has(id)){
+    expanded.delete(id);
+    el.classList.remove('expanded');
+  }else{
+    expanded.add(id);
+    el.classList.add('expanded');
+  }
 };
-const resetAll = () => { if(confirm('Reiniciar toda a lista?')){ watched=[]; save(); render(); } };
 
-const setFilter = (f, btn) => {
-  filt = f;
+const markAll=()=>{watched=[...new Set([...watched,...eras.flatMap(e=>e.items.map(i=>i.id))])];save();render();};
+const resetAll=()=>{if(confirm('Reiniciar toda a lista?')){watched=[];save();render();}};
+
+const onSearch=(val)=>{
+  searchQ=val.trim().toLowerCase();
+  document.getElementById('search-clear').classList.toggle('visible',val.length>0);
+  applyVisibility();
+};
+const clearSearch=()=>{
+  searchQ='';
+  document.getElementById('search-input').value='';
+  document.getElementById('search-clear').classList.remove('visible');
+  applyVisibility();
+};
+
+const setFilter=(f,btn)=>{
+  filt=f;
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+  applyVisibility();
+};
+
+const applyVisibility=()=>{
+  let anyVisible=false;
   document.querySelectorAll('.row').forEach(el=>{
-    const t = el.dataset.type, done = el.classList.contains('done');
-    const show = f==='all' ? true : f==='watched' ? done : f==='unwatched' ? !done : t===f;
-    el.classList.toggle('hidden', !show);
+    const t=el.dataset.type,done=el.classList.contains('done'),title=el.dataset.title||'';
+    const matchFilter=filt==='all'?true:filt==='watched'?done:filt==='unwatched'?!done:t===filt;
+    const matchSearch=searchQ===''||title.includes(searchQ);
+    const show=matchFilter&&matchSearch;
+    el.classList.toggle('hidden',!show);
+    if(show)anyVisible=true;
   });
   document.querySelectorAll('.era-block').forEach(b=>{
-    b.style.display = b.querySelectorAll('.row:not(.hidden)').length ? '' : 'none';
+    b.style.display=b.querySelectorAll('.row:not(.hidden)').length?'':'none';
+  });
+  document.getElementById('no-results').classList.toggle('visible',!anyVisible);
+};
+
+const updateNextUp=()=>{
+  document.querySelectorAll('.row.next-up').forEach(el=>{
+    el.classList.remove('next-up');
+    const a=el.querySelector('.next-arrow');if(a)a.remove();
+  });
+  const allItems=eras.flatMap(e=>e.items);
+  const next=allItems.find(i=>!watched.includes(i.id));
+  if(!next)return;
+  const el=document.getElementById('r'+next.id);
+  if(!el)return;
+  el.classList.add('next-up');
+  const arrow=document.createElement('span');
+  arrow.className='next-arrow';arrow.textContent='▶';
+  el.querySelector('.row-top').insertBefore(arrow,el.querySelector('.row-top').firstChild);
+};
+
+const scrollToNext=()=>{
+  const el=document.querySelector('.row.next-up');
+  if(!el)return;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+};
+
+const updateEraBars=()=>{
+  eras.forEach(era=>{
+    const total=era.items.length;
+    const done=era.items.filter(i=>watched.includes(i.id)).length;
+    const pct=total?Math.round(done/total*100):0;
+    const fill=document.getElementById('era-bar-'+era.id);
+    const lbl=document.getElementById('era-lbl-'+era.id);
+    if(fill)fill.style.width=pct+'%';
+    if(lbl)lbl.textContent=`${done}/${total}`;
   });
 };
 
-const stats = () => {
-  const total = eras.flatMap(e=>e.items).length;
-  const w = watched.length;
-  const pct = total ? Math.round(w/total*100) : 0;
-  document.getElementById('sc-total').textContent = total;
-  document.getElementById('sc-done').textContent = w;
-  document.getElementById('sc-left').textContent = total-w;
-  document.getElementById('sc-pct').textContent = pct+'%';
-  document.getElementById('bar').style.width = pct+'%';
+const stats=()=>{
+  const total=eras.flatMap(e=>e.items).length;
+  const w=watched.length;
+  const pct=total?Math.round(w/total*100):0;
+  document.getElementById('sc-total').textContent=total;
+  document.getElementById('sc-done').textContent=w;
+  document.getElementById('sc-left').textContent=total-w;
+  document.getElementById('sc-pct').textContent=pct+'%';
+  document.getElementById('bar').style.width=pct+'%';
 };
 
-const badgeClass = t => ({'filme':'b-film','serie':'b-serie','especial':'b-especial','animacao':'b-animacao'}[t]||'b-extras');
-const badgeLabel = t => ({'filme':'🎬 Filme','serie':'📺 Série','especial':'⭐ Especial','animacao':'🎨 Animação'}[t]||t);
+const badgeClass=t=>({'filme':'b-film','serie':'b-serie','especial':'b-especial','animacao':'b-animacao','short':'b-short'}[t]||'b-extras');
+const badgeLabel=t=>({'filme':'🎬 Filme','serie':'📺 Série','especial':'⭐ Especial','animacao':'🎨 Animação','short':'📎 Short/One-Shot'}[t]||t);
 
-const render = () => {
-  let num = 0;
-  const root = document.getElementById('root');
-  root.innerHTML = eras.map(era=>{
-    const rows = era.items.map(item=>{
+const render=()=>{
+  let num=0;
+  const root=document.getElementById('root');
+  root.innerHTML=eras.map(era=>{
+    const rows=era.items.map(item=>{
       num++;
-      const done = watched.includes(item.id);
-      const note = item.note ? `<span class="rnote">${item.note}</span>` : '';
-      const nc = !item.canon ? `<span class="rnoncanon">Universo paralelo</span>` : '';
-      return `<div class="row${done?' done':''}" id="r${item.id}" data-type="${item.type}" onclick="toggle(${item.id})">
-        <span class="rnum">${num}</span>
-        <span class="rico">${item.icon}</span>
-        <div class="rinfo">
-          <div class="rtitle">${item.title}</div>
-          <div class="rmeta">
-            <span class="badge ${badgeClass(item.type)}">${badgeLabel(item.type)}</span>
-            <span class="ryear">${item.year}</span>
-            <span class="rstream">${item.stream}</span>
-            ${note}${nc}
+      const done=watched.includes(item.id);
+      const isExp=expanded.has(item.id);
+      const note=item.note?`<span class="rnote">${item.note}</span>`:'';
+      const nc=!item.canon?`<span class="rnoncanon">Universo paralelo</span>`:'';
+      return `<div class="row${done?' done':''}${isExp?' expanded':''}" id="r${item.id}" data-type="${item.type}" data-title="${item.title.toLowerCase()}" onclick="expandRow(${item.id})">
+        <div class="row-top">
+          <span class="rnum">${num}</span>
+          <span class="rico">${item.icon}</span>
+          <div class="rinfo">
+            <div class="rtitle">${item.title}</div>
+            <div class="rmeta">
+              <span class="badge ${badgeClass(item.type)}">${badgeLabel(item.type)}</span>
+              <span class="ryear">${item.year}</span>
+              <span class="rstream">${item.stream}</span>
+              ${note}${nc}
+            </div>
           </div>
+          <span class="rchevron">▾</span>
+          <div class="rcheck" onclick="toggle(event,${item.id})" title="Marcar como assistido">${done?'✓':''}</div>
         </div>
-        <div class="rcheck">${done?'✓':''}</div>
+        <div class="row-detail">
+          <p class="sinopse-text">${item.sinopse}</p>
+        </div>
       </div>`;
     }).join('');
-
-    const desc = era.desc ? `<div class="era-desc">${era.desc}</div>` : '';
-
+    const desc=era.desc?`<div class="era-desc">${era.desc}</div>`:'';
+    const eraTotal=era.items.length;
+    const eraDone=era.items.filter(i=>watched.includes(i.id)).length;
+    const eraPct=eraTotal?Math.round(eraDone/eraTotal*100):0;
     return `<div class="era-block">
       <div class="era-header">
         <span class="era-label">${era.label}</span>
@@ -435,11 +497,19 @@ const render = () => {
         <span class="era-title">${era.title}</span>
       </div>
       ${desc}
+      <div class="era-progress">
+        <div class="era-bar-bg"><div class="era-bar-fill" id="era-bar-${era.id}" style="width:${eraPct}%"></div></div>
+        <span id="era-lbl-${era.id}">${eraDone}/${eraTotal}</span>
+      </div>
       <div class="items">${rows}</div>
     </div>`;
   }).join('');
-  stats();
+  stats();updateNextUp();
 };
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('scroll-top').classList.toggle('visible',window.scrollY>400);
+});
 
 render();
 </script>
